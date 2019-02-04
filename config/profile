@@ -1,0 +1,10 @@
+# ~/.profile
+[[ -f ~/.zshrc ]] && . ~/.zshrc
+
+#export PATH=$PATH:
+export EDITOR="vim"
+export TERMINAL="termite"
+export BROWSER="firefox"
+
+
+

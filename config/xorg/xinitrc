@@ -1,0 +1,4 @@
+# ~/.xinitrc
+~/.fehbg
+compton &
+exec i3
