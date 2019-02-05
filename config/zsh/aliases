@@ -9,3 +9,5 @@ alias brightmax='echo 535'
 
 #ssh 
 alias melkq="ssh $MELKQ_SSH"
+alias melkq_sftp="sftp $MELKQ_SFTP"
+
