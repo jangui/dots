@@ -1,22 +1,18 @@
 # ~/.zshrc
 
+source ~/dots/config/zsh/rc 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/dangill/.oh-my-zsh"
-alias ll='ls -l -a'
-alias brightset='sudo vim /sys/class/backlight/intel_backlight/brightness'
-alias brightmax='echo 535'
-alias melkq='ssh dangill@157.230.208.15'
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="dangill"
-export TERM="xterm"
-export LC_ALL="en_US.UTF-8"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
