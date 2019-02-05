@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+
+# xclip
+alias xclip='xclip -selection c'
+
+# brightness
+alias brightset='sudo vim /sys/class/backlight/intel_backlight/brightness'
+alias brightmax='echo 535'
+
+#ssh 
+alias melkq="ssh $MELKQ_SSH"

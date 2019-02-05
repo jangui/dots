@@ -1,0 +1,8 @@
+#!/usr/env/zsh
+
+#print zeus text
+~/dots/config/zsh/zeus
+
+source ~/dots/config/zsh/env_vars
+source ~/dots/config/zsh/aliases
+
