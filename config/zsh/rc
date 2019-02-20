@@ -1,7 +1,7 @@
 #!/usr/env/zsh
 
 #print zeus text
-~/dots/config/zsh/banner
+~/.banner
 
 source ~/dots/config/zsh/env_vars
 source ~/dots/config/zsh/aliases
