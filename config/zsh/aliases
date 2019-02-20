@@ -11,3 +11,5 @@ alias brightmax='echo 535'
 alias melkq="ssh $MELKQ_SSH"
 alias melkq_sftp="sftp $MELKQ_SFTP"
 
+#screenshot
+alias screenshot='sleep 2; import -window root screenshot.png'
