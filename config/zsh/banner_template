@@ -4,7 +4,7 @@
 
 from colorama import Fore, Style
 
-zeus='''
+banner='''
  ███████╗███████╗██╗   ██╗███████╗
  ╚══███╔╝██╔════╝██║   ██║██╔════╝
    ███╔╝ █████╗  ██║   ██║███████╗
@@ -13,4 +13,4 @@ zeus='''
  ╚══════╝╚══════╝ ╚═════╝ ╚══════╝
 '''
 
-print(Fore.YELLOW + Style.DIM + zeus + Style.RESET_ALL)
+print(Fore.YELLOW + Style.DIM + banner + Style.RESET_ALL)
