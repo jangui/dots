@@ -2,6 +2,8 @@
 
 #!/usr/bin/python3
 
+#copy this file to ~/.banner
+
 from colorama import Fore, Style
 
 banner='''
