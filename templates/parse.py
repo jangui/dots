@@ -9,7 +9,8 @@ class MyParser(argparse.ArgumentParser):
 
 def main():
     parser = MyParser(description="")
-    parser.add_argument("arg_name", help="", nargs="1", default="",  type=str) #use tack for optional args
+    parser.add_argument("arg_name", help="", nargs="1", default="",  type=str)
+    parser.add_argument("-v", help="", type=str) #optional
     parser.parse_args()
 
-    print(args.arg)
+    #print(args.arg_name)
