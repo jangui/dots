@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
-# ~/.oh_my_zsh/themes/dangill.zsh-theme 
+# ~/.oh_my_zsh/themes/jangui.zsh-theme 
 
 # user, host, full path, and time/date on two lines for easier vgrepping
 

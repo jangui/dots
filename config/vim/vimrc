@@ -157,7 +157,7 @@ endif
 map <leader>ss :setlocal spell!<cr>
 
 "press -nn will disable line numbers
-map <leader>nn :set nonumber<cr>
+map <leader>nn :set !number<cr>
 
 "set color of line numbers
 highlight LineNr ctermfg=red
