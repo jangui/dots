@@ -1,0 +1,6 @@
+# ~/.ssh/config
+
+host chose_your_name
+    HostName valid_host_name
+    IdentityFile ~/.ssh/id_rsa_keyname
+    User username
