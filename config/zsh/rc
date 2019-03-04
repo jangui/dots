@@ -1,5 +1,8 @@
 #!/usr/env/zsh
 
+#stop annoying bell
+unsetopt beep
+
 #print zeus text
 ~/.banner
 
