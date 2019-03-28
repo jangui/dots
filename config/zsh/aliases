@@ -7,9 +7,5 @@ alias xclip='xclip -selection c'
 alias brightset='sudo vim /sys/class/backlight/intel_backlight/brightness'
 alias brightmax='echo 535'
 
-#ssh 
-alias melkq="ssh $MELKQ_SSH"
-alias melkq_sftp="sftp $MELKQ_SFTP"
-
 #screenshot
 alias screenshot='sleep 2; import -window root screenshot.png'

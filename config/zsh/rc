@@ -1,6 +1,6 @@
 #!/usr/env/zsh
 
-#print zeus text
+#display banner
 ~/.banner
 
 source ~/dots/config/zsh/env_vars
