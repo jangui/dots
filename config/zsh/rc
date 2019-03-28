@@ -1,0 +1,10 @@
+#!/usr/env/zsh
+
+#stop annoying bell
+unsetopt beep
+
+#print banner text
+~/.banner
+
+source ~/dots/config/zsh/env_vars
+source ~/dots/config/zsh/aliases
