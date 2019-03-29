@@ -193,4 +193,4 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 #lock screen
-bindsym $mod+Shift+l exec /home/jangui/dots/bin/lock
+bindsym $mod+Control+l exec /home/jangui/dots/bin/lock
