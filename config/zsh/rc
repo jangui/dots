@@ -8,3 +8,5 @@ unsetopt beep
 
 source ~/dots/config/zsh/env_vars
 source ~/dots/config/zsh/aliases
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
