@@ -194,3 +194,6 @@ client.background       #ffffff
 
 #lock screen
 bindsym $mod+Control+l exec /home/jangui/dots/bin/lock
+
+#polybar
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
