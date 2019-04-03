@@ -1,7 +1,9 @@
 # ~/.xinitrc
 ~/.fehbg
 compton &
-exec i3
 
 #change typematic delay and rate
 xset r rate 200 30
+
+exec i3
+
