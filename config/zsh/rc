@@ -29,4 +29,5 @@ alias xclip='xclip -selection c'
 #screenshot
 alias screenshot='sleep 2; import -window root screenshot.png'
 
-
+#lastpass
+alias passplz='lpass show -pc'
