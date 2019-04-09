@@ -161,3 +161,6 @@ map <leader>nn :set !number<cr>
 
 "set color of line numbers
 highlight LineNr ctermfg=red
+
+"use system clipboard
+set clipboard=unnamedplus
