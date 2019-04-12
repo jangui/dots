@@ -6,11 +6,6 @@ unsetopt beep
 #print banner text
 $HOME/.banner
 
-#syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-source $HOME/dots/config/zsh/custom_env_vars #unique to each system
-source $HOME/dots/config/zsh/custom_aliases  #unique to each system
 
 #----environment variables----
 #system vars
@@ -31,3 +26,7 @@ alias screenshot='sleep 2; import -window root screenshot.png'
 
 #lastpass
 alias passplz='lpass show -pc'
+
+#----overide aliases and env vars----
+source $HOME/dots/config/zsh/custom_env_vars #unique to each system
+source $HOME/dots/config/zsh/custom_aliases  #unique to each system
