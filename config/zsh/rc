@@ -4,7 +4,7 @@
 unsetopt beep
 
 #print banner text
-$HOME/.banner
+$HOME/.banner | lolcat
 
 
 #----environment variables----
