@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-# ~/.banner
+
+#!/usr/bin/python3
 
 from colorama import Fore, Style
-from random import randint
 
-
-banner='''
-
+banner = """
      ▄█    ▄████████ ███▄▄▄▄      ▄██████▄  ███    █▄   ▄█
     ███   ███    ███ ███▀▀▀██▄   ███    ███ ███    ███ ███
     ███   ███    ███ ███   ███   ███    █▀  ███    ███ ███▌
@@ -17,9 +15,17 @@ banner='''
 █▄ ▄███   ███    █▀   ▀█   █▀    ████████▀  ████████▀  █▀
 ▀▀▀▀▀▀
 
+"Do. Or do not. There is no try" - Yoda
+"""
+
+
+banner2='''
+ ███████╗███████╗██╗   ██╗███████╗
+ ╚══███╔╝██╔════╝██║   ██║██╔════╝
+   ███╔╝ █████╗  ██║   ██║███████╗
+  ███╔╝  ██╔══╝  ██║   ██║╚════██║
+ ███████╗███████╗╚██████╔╝███████║
+ ╚══════╝╚══════╝ ╚═════╝ ╚══════╝
 '''
 
-qoutes = ['"Do. Or do not. There is no try" - Yoda']
 print(Fore.YELLOW + Style.DIM + banner + Style.RESET_ALL)
-
-print(qoutes[randint(0,len(qoutes)-1)],'\n')
