@@ -27,7 +27,7 @@ qoutes += ['“Pay heed to the tales of old wives. It may well be that they\nalo
 qoutes += ['Frodo: "I wish the Ring had never come to me. I wish none of this had happened."\nGandalf: "So do all who live to see such times, but that is not for them to decide.\nAll we have to decide is what to do with the time that is given to us."']
 qoutes += ['“Never tell me the odds.” – Han Solo', '“Fear is the path to the dark side. Fear leads to anger\nanger leads to hate; hate leads to suffering.\nI sense much fear in you.”\n- Yoda', '“Nothing in the world is worth having or worth doing unless\nit means effort, pain, difficulty… I have never in my life\nenvied a human being who led an easy life. I have envied a\ngreat many people who led difficult lives and led them well.”\n- Theodore Roosevelt']
 qoutes += ['“Whether You Believe You Can Do a Thing or Not, You Are Right”\n- Henry Ford', '“I must die or be better”\n- Abraham Lincoln', '“Time is the most valuable thing you have; be sure to spend it well.”\n-Lyndon Johnson']
-qoutes += ['"A question opens the mind, a statement closes it."\n- Robert Kiyosaki']
+qoutes += ['"A question opens the mind, a statement closes it."\n- Robert Kiyosaki', '"Between stimulus and response there is a space. In that space is our power to choose our response. In our response lies our growth and our freedom."\n-Viktor Frankl']
 print(Fore.YELLOW + Style.DIM + banner + Style.RESET_ALL)
 
 print(qoutes[randint(0,len(qoutes)-1)],'\n')
