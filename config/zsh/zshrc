@@ -2,6 +2,7 @@
 
 
 source ~/dots/config/zsh/rc 
+source ~/dots/config/zsh/functions
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 

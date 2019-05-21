@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+rm_crap() {
+    rm -rf $HOME/Dropbox/.dropbox.cache/*
+}
