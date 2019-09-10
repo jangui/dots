@@ -1,0 +1,41 @@
+#!/usr/bin/zsh
+
+#git setup
+git config --global user.name "jangui"
+git config --global user.email "jaimitino@gmail.com"
+
+#check distro, update & a few downloads
+distro="$(cat /etc/os-release | grep ID | head -n 1 | tr -d ID=)"
+if [$distro == "arch"]
+then
+    sudo pacman -Syu && sudo pacman -S zsh vim curl lolcat && chsh $(which zsh)
+    ln -s $HOME/.dots/config/termite $HOME/.config/termite
+    ln -s $HOME/.dots/config/polybar $HOME/.config/polybar
+    ln -s $HOME/.dots/config/i3 $HOME/.config/i3
+elif [$distro == "ubuntu"] || [$distro == "raspbian"]
+then
+    sudo apt update && sudo apt upgrade && sudo apt install zsh vim curl lolcat && chsh $(which zsh)
+else
+then
+    echo "unknown distro: $distro" 
+fi
+
+#install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+
+#zsh syntax highlighting
+cd /usr/share/zsh/plugins
+git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+cd ~
+
+#setup configs
+ln -s $HOME/.dots/config/vim/vimrc $HOME/.vimrc
+ln -s $HOME/.dots/config/zsh/zshrc $HOME/.zshrc
+ln -s $HOME/.dots/config/profile $HOME/.profile
+ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
+ln -s $HOME/.dots/config/zsh/banner $HOME/.banner
+touch $HOME/.dots/config/zsh/custom_env_vars
+touch $HOME/.dots/config/zsh/custom_aliases
+chmod +x $HOME/.banner
+
+source $HOME/.zshrc

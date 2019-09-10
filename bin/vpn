@@ -4,9 +4,8 @@ case "$1" in
     "osiris")
         sudo openvpn --config /etc/openvpn/client/osiris.conf --daemon && echo "connnected to osiris vpn"
         ;;
-    *)
-    "ois")
-        sudo openvpn --config /etc/openvpn/client/home.conf --daemon && echo "connected to home vpn"
+    "home")
+        sudo openvpn --config /etc/openvpn/client/home.conf && echo "connected to home vpn"
         ;;
     *)
         echo ""

@@ -15,9 +15,9 @@ export TERMINAL="termite"
 export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
-#export PATH=$PATH
+export PATH=$HOME/.dots/bin:$PATH
 
-#----aliases----
+#------aliases------
 # xclip
 alias xclip='xclip -selection c'
 
@@ -27,6 +27,9 @@ alias screenshot='sleep 2; import -window root screenshot.png'
 #lastpass
 alias passplz='lpass show -pc'
 
+#venv
+alias venv="source ~/.venv/bin/activate"
+
 #----overide aliases and env vars----
-source $HOME/dots/config/zsh/custom_env_vars #unique to each system
-source $HOME/dots/config/zsh/custom_aliases  #unique to each system
+source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
+source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
