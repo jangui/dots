@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # ~/.banner
 
-from colorama import Fore, Style
 from random import randint
 
 
@@ -29,6 +28,6 @@ qoutes += ['“Never tell me the odds.” – Han Solo', '“Fear is the path to
 qoutes += ['“Whether You Believe You Can Do a Thing or Not, You Are Right”\n- Henry Ford', '“I must die or be better”\n- Abraham Lincoln', '“Time is the most valuable thing you have; be sure to spend it well.”\n-Lyndon Johnson']
 qoutes += ['"A question opens the mind, a statement closes it."\n- Robert Kiyosaki', '"Between stimulus and response there is a space. In that\nspace is our power to choose our response.\nIn our response lies our growth and our freedom."\n-Viktor Frankl']
 qoutes += ['"Falure is not falling down, it is not getting up again."\n- Mary Pickford']
-print(Fore.YELLOW + Style.DIM + banner + Style.RESET_ALL)
 
+print(banner)
 print(qoutes[randint(0,len(qoutes)-1)],'\n')

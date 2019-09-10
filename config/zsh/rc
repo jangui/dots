@@ -1,16 +1,11 @@
 #!/usr/bin/zsh
 
-#stop annoying bell
-unsetopt beep
-
 #print banner text
 $HOME/.banner | lolcat
 
-
 #----environment variables----
 #system vars
-export LC_ALL="en_US.UTF-8"
-export LANG="C"
+export LANG="C.UTF-8"
 export TERMINAL="termite"
 export TERM="xterm"
 export EDITOR="vim"
@@ -30,6 +25,7 @@ alias passplz='lpass show -pc'
 #venv
 alias venv="source ~/.venv/bin/activate"
 
-#----overide aliases and env vars----
+#---unique configs----
+source $HOME/.dots/config/zsh/custom_rc #unique to each system
 source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
 source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
