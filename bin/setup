@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/bash
 
 #git setup
 git config --global user.name "jangui"
