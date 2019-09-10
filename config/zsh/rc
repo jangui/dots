@@ -1,8 +1,5 @@
 #!/usr/bin/zsh
 
-#print banner text
-$HOME/.banner | lolcat
-
 #----environment variables----
 #system vars
 export LANG="C.UTF-8"
@@ -24,6 +21,9 @@ alias passplz='lpass show -pc'
 
 #venv
 alias venv="source ~/.venv/bin/activate"
+
+#print banner text
+$HOME/.banner | lolcat
 
 #---unique configs----
 source $HOME/.dots/config/zsh/custom_rc #unique to each system
