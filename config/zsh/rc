@@ -10,6 +10,9 @@ export BROWSER="firefox"
 export PATH=$HOME/.dots/bin:$PATH
 
 #------aliases------
+# in case of fuck ups
+alias rm -rf='cp -r /tmp/trash'
+
 # xclip
 alias xclip='xclip -selection c'
 
