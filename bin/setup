@@ -17,7 +17,7 @@ elif [ $distro == "ubuntu" ] || [ $distro == "raspbian" ]; then
     sudo apt update && sudo apt upgrade && sudo apt install zsh vim curl lolcat python3-pip 
 else
     echo "unknown distro: $distro" 
-    exit 0
+    exit 1
 fi
 
 #set default shell
