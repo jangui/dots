@@ -196,7 +196,7 @@ client.background       #ffffff
 bindsym $mod+Control+l exec /home/jangui/.dots/bin/lock
 
 #volume controls
-bindsym $mod+Control+a exec /usr/bin/alsamixer
+#bindsym $mod+Control+a exec /bin/bash /usr/bin/alsamixer
 
 #polybar
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
