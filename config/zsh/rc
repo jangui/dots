@@ -8,6 +8,7 @@ export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
 export PATH=$HOME/.dots/bin:$PATH
+export ZSH_THEME="jangui2" #override in custom_rc
 
 #------aliases------
 # xclip
@@ -23,7 +24,9 @@ alias passplz='lpass show -pc'
 alias venv="source ~/.venv/bin/activate"
 
 #print banner text
+#baner is unique per system
 $HOME/.banner | lolcat
+
 
 #---unique configs----
 source $HOME/.dots/config/zsh/custom_rc #unique to each system

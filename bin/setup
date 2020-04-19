@@ -40,6 +40,8 @@ rm -rf $HOME/.profile
 ln -s $HOME/.dots/config/profile $HOME/.profile
 rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
+rm -rf $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
+ln -s $HOME/.dots/config/zsh/jangui2.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 rm -rf $HOME/.banner 
 ln -s $HOME/.dots/config/zsh/banner $HOME/.banner
 touch $HOME/.dots/config/zsh/custom_rc
