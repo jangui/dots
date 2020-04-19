@@ -23,10 +23,13 @@ alias passplz='lpass show -pc'
 #venv
 alias venv="source ~/.venv/bin/activate"
 
+#Place a Makefile template in current dir
+alias maket="cp ~/dots/templates/Makefile ."
+
+#-------other--------
 #print banner text
 #baner is unique per system
 $HOME/.banner | lolcat
-
 
 #---unique configs----
 source $HOME/.dots/config/zsh/custom_rc #unique to each system
