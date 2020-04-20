@@ -30,7 +30,7 @@ alias maket="cp ~/dots/templates/Makefile ."
 #print banner text (unique banner per system)
 $HOME/.banner | lolcat
 
----unique configs----
+#---unique configs----
 source $HOME/.dots/config/zsh/custom_rc #unique to each system
 source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
 source $HOME/.dots/config/zsh/custom_aliases  #unique to each system

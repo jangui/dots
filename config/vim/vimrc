@@ -153,13 +153,13 @@ if has("autocmd")
 endif
 
 
-" Pressing -ss will toggle and untoggle spell checking
+" Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-"pressing -nn will disable line numbers
+"pressing ,nn will disable line numbers
 map <leader>nn :set nonumber<cr>
 
-"pressing -n will enable line numbers
+"pressing ,n will enable line numbers
 map <leader>n :set number<cr>
 
 "set color of line numbers
@@ -167,3 +167,6 @@ highlight LineNr ctermfg=red
 
 "use system clipboard
 set clipboard=unnamedplus
+
+"pressing ,s will run a shell
+map <leader>s :! $SHELL<cr>
