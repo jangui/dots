@@ -15,11 +15,12 @@ del() {
       fi
     fi
     
+    basefilename=$(basename $filename)
     #check if file in trash w/ same name
-    if [[ $(find $HOME/.trash/ -name "$filename" | wc -l) = 0 ]] ; then
-      newName=$filename
+    if [[ $(find $HOME/.trash/ -name "$basefilename" | wc -l) = 0 ]] ; then
+      newName=$basefilename
     else
-      newName=$filename.$(date +"%s")
+      newName=$basefilename.$(date +"%s")
     fi
 
     #add to trash
