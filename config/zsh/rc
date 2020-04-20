@@ -1,14 +1,14 @@
 #!/usr/bin/zsh
 
 #----environment variables----
-#system vars
+#system vars (override any in custom_rc)
 export LANG="C.UTF-8"
 export TERMINAL="termite"
 export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
 export PATH=$HOME/.dots/bin:$PATH
-export ZSH_THEME="jangui2" #override in custom_rc
+export ZSH_THEME="jangui2"
 
 #------aliases------
 # xclip
@@ -23,15 +23,14 @@ alias passplz='lpass show -pc'
 #venv
 alias venv="source ~/.venv/bin/activate"
 
-#Place a Makefile template in current dir
+#place a Makefile template in current dir
 alias maket="cp ~/dots/templates/Makefile ."
 
 #-------other--------
-#print banner text
-#baner is unique per system
+#print banner text (unique banner per system)
 $HOME/.banner | lolcat
 
-#---unique configs----
+---unique configs----
 source $HOME/.dots/config/zsh/custom_rc #unique to each system
 source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
 source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
