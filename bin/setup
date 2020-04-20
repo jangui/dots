@@ -49,4 +49,11 @@ touch $HOME/.dots/config/zsh/custom_env_vars
 touch $HOME/.dots/config/zsh/custom_aliases
 chmod +x $HOME/.banner
 
+#make trash folder
+mkdir -p $HOME/.trash
+
+#set up cron for emptying trash
+chmod +x $HOME/.dots/bin/empty_trash
+sudo ln -s $HOME/.dots/bin/empty_trash /etc/cron.weekly
+
 source $HOME/.zshrc
