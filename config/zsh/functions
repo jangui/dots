@@ -11,7 +11,7 @@ del() {
     if [ ! -f $filename ] ; then
       if [ ! -d $filename ] ; then
         echo "No such file or directory: $filename"
-        break
+        continue
       fi
     fi
     
