@@ -52,6 +52,9 @@ chmod +x $HOME/.banner
 #make trash folder
 mkdir -p $HOME/.trash
 
+#make root trask folder
+sudo mkdir -p /root/.trash
+
 #set up cron for emptying trash
 chmod +x $HOME/.dots/bin/empty_trash
 sudo ln -s $HOME/.dots/bin/empty_trash /etc/cron.weekly

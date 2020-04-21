@@ -24,10 +24,11 @@ del() {
     fi
 
     #add to trash
-    if mv $filename $HOME/.trash/$newName --force ; then
+    errfile="delErr.log"
+    if mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
       echo "$filename moved to trash"
     else
-      if sudo mv $filename $HOME/.trash/$newName --force ; then
+      if sudo mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
         echo "$filename moved to trash"
       else 
         echo "failed to move $filename to trash"
