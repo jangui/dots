@@ -1,6 +1,6 @@
 " ~/.vimrc
 
-"sets - to leader key
+"sets , to leader key
 let mapleader = ","
 
 " Sets how many lines of history VIM has to remember
@@ -99,7 +99,6 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
-
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
@@ -123,11 +122,7 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"map <space> /
-"map <c-space> ?
-
-" Return to last edit position when opening files (You want this!)
+" Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Always show the status line
@@ -152,21 +147,64 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-"pressing ,nn will disable line numbers
-map <leader>nn :set nonumber<cr>
-
-"pressing ,n will enable line numbers
-map <leader>n :set number<cr>
-
 "set color of line numbers
 highlight LineNr ctermfg=red
 
 "use system clipboard
 set clipboard=unnamedplus
 
-"pressing ,s will run a shell
+""" WINDOW (SPLITS) MANAGEMENT / NAGIVATION """
+
+"remap control-w + h/j/k/l to control-h/j/k/l (window navigation)
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+"remapping turning current window into tab
+noremap <C-t> <C-w>T
+
+"remapping close all windows in current tab except current window
+noremap <C-o> <C-w>o
+
+"remapping normalize all window sizes
+noremap <C-=> <C-w>=
+
+"change default vertical split to split below
+set splitbelow
+
+"change default horizontal split to split right
+set splitright
+
+"close current window
+map <leader>c :close<cr>
+
+"open file explore & open file in horizontal split
+map <leader>h :Sexplore<cr>
+
+"open file explore & open file in vertical split (on the right)
+map <leader>v :Vexplore!<cr>
+
+"open file explore & open file in vertical split (on the left)
+map <leader>vl :Vexplore<cr>
+
+""" MISC MAPPINGS """
+
+"toggle between spell checking
+map <leader>ss :setlocal spell!<cr>
+
+"disable line numbers
+map <leader>nn :set nonumber<cr>
+
+"enable line numbers
+map <leader>n :set number<cr>
+
+"run a shell
 map <leader>s :! $SHELL<cr>
+
+"make (Makefile in cwd)
+map <leader>m :make<cr>
+
+"make clean (Makefile in cwd)
+map <leader>mc :make clean<cr>
+
