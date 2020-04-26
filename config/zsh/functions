@@ -4,6 +4,12 @@ rm_crap() {
     rm -rf $HOME/Dropbox/.dropbox.cache/*
 }
 
+#override cd so new shells open where we left off
+cd() {
+    builtin cd $1
+    pwd > $HOME/.pwd
+}
+
 #move files to trash (cronjob will clean trash periodically)
 del() {
   for filename in "$@" ; do
