@@ -200,7 +200,7 @@ map <leader>nn :set nonumber<cr>
 map <leader>n :set number<cr>
 
 "run a shell
-map <leader>s :! $SHELL<cr>
+map <leader>s :shell<cr>
 
 "make (Makefile in cwd)
 map <leader>m :make<cr>
