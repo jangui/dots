@@ -8,5 +8,5 @@ mkdir $HOME/.trash
 for user in $(ls /home) ; do
   rm -rf "/home/$user/.trash"
   mkdir "/home/$user/.trash"
-  chown $user:$user "/home/$user/.trash"
+  chown $user "/home/$user/.trash"
 done
