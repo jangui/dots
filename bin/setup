@@ -60,3 +60,4 @@ chmod +x $HOME/.dots/bin/empty_trash
 sudo ln -s $HOME/.dots/bin/empty_trash /etc/cron.weekly
 
 source $HOME/.zshrc
+echo "REMINDER: add crontab for emptying trash"
