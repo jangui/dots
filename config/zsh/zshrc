@@ -42,14 +42,13 @@ source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
 #print banner text (unique banner per system)
 $HOME/.banner | lolcat
 
-# oh-my-zsh config
-export ZSH="/home/jangui/.oh-my-zsh"
-plugins=(git zsh-syntax-highlighting)
-source $ZSH/oh-my-zsh.sh
-
 # open shell in last working directory
-# cd function must be defined
+# .pwd created by custom cd func
 if [ -f $HOME/.pwd ]; then
    cd "$(cat $HOME/.pwd)"
 fi
 
+# oh-my-zsh config
+export ZSH="/home/jangui/.oh-my-zsh"
+plugins=(git zsh-syntax-highlighting)
+source $ZSH/oh-my-zsh.sh
