@@ -27,9 +27,8 @@ chsh $(whoami) -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 
 #zsh syntax highlighting
-cd $HOME/.oh-my-zsh/custom/plugins
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-cd ~
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/
+chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 #setup configs
 rm -rf $HOME/.vimrc 
@@ -41,7 +40,7 @@ ln -s $HOME/.dots/config/profile $HOME/.profile
 rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 rm -rf $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
-ln -s $HOME/.dots/config/zsh/jangui2.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
+ln -s $HOME/.dots/config/zsh/jangui2.zsh-theme $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
 rm -rf $HOME/.banner 
 ln -s $HOME/.dots/config/zsh/banner $HOME/.banner
 touch $HOME/.dots/config/zsh/custom_rc
@@ -54,10 +53,6 @@ mkdir -p $HOME/.trash
 
 #make root trask folder
 sudo mkdir -p /root/.trash
-
-#set up cron for emptying trash
-chmod +x $HOME/.dots/bin/empty_trash
-sudo ln -s $HOME/.dots/bin/empty_trash /etc/cron.weekly
 
 source $HOME/.zshrc
 echo "REMINDER: add crontab for emptying trash"
