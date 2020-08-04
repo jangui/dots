@@ -8,7 +8,7 @@ git config --global user.email "jaimitino@gmail.com"
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
     sudo pacman -Syu && sudo pacman -S zsh vim curl lolcat python3-pip
-    rm -rf $HOME/.config/termite $HOME/.config/polybar /etc/pacman.conf
+    sudo rm -rf $HOME/.config/termite $HOME/.config/polybar /etc/pacman.conf
     ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
     ln -s $HOME/.dots/config/termite $HOME/.config/termite
     ln -s $HOME/.dots/config/polybar $HOME/.config/polybar
