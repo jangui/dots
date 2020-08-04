@@ -1,4 +1,6 @@
 # ~/.config/termite/config
+# /etc/xdg/termite/config
+
 [options]
 scroll_on_output = false
 scroll_on_keystroke = true
@@ -71,7 +73,7 @@ color7 = #dddddd
 color15 = #ffffff
 
 
-[hints]
+#[hints]
 #font = Monospace 12
 #foreground = #dcdccc
 #background = #3f3f3f

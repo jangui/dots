@@ -7,12 +7,11 @@ git config --global user.email "jaimitino@gmail.com"
 #check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
-    sudo pacman -Syu && sudo pacman -S zsh vim curl lolcat python3-pip
-    sudo rm -rf $HOME/.config/termite $HOME/.config/polybar /etc/pacman.conf
-    ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
-    ln -s $HOME/.dots/config/termite $HOME/.config/termite
-    ln -s $HOME/.dots/config/polybar $HOME/.config/polybar
-    ln -s $HOME/.dots/config/i3 $HOME/.config/i3
+    sudo pacman -Syu && sudo pacman -S zsh vim curl lolcat python3 python3-pip compton i3status i3 dmenu feh termite xorg-server xorg-xinit
+    sudo rm -rf $HOME/.config/termite /etc/pacman.conf
+    sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
+    sudo ln -s $HOME/.dots/config/termite $HOME/.config/termite
+    sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
 elif [ $distro == "ubuntu" ] || [ $distro == "raspbian" ]; then
     sudo apt update && sudo apt upgrade && sudo apt install zsh vim curl lolcat python3-pip 
 else
@@ -27,7 +26,7 @@ chsh $(whoami) -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 
 #zsh syntax highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 #setup configs
@@ -42,7 +41,10 @@ ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh
 rm -rf $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui2.zsh-theme $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
 rm -rf $HOME/.banner 
-ln -s $HOME/.dots/config/zsh/banner $HOME/.banner
+cp $HOME/.dots/config/zsh/banner $HOME/.banner
+rm -rf $HOME/.xinitrc
+ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
+ln -s $HOME/.dots/config/xorg/Xresources $HOME/.Xresources
 touch $HOME/.dots/config/zsh/custom_rc
 touch $HOME/.dots/config/zsh/custom_env_vars
 touch $HOME/.dots/config/zsh/custom_aliases
@@ -51,7 +53,7 @@ chmod +x $HOME/.banner
 #make trash folder
 mkdir -p $HOME/.trash
 
-#make root trask folder
+#make root trash folder
 sudo mkdir -p /root/.trash
 
 source $HOME/.zshrc
