@@ -11,7 +11,7 @@ export TERMINAL="termite"
 export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
-export PATH=$HOME/.dots/bin:$PATH
+export PATH=$PATH:$HOME/.dots/bin:$HOME/.local/bin
 export ZSH_THEME="jangui2"
 
 #------aliases------
