@@ -1,41 +1,55 @@
-#!/usr/bin/zsh
-# ~/.oh_my_zsh/themes/jangui.zsh-theme 
+#!/usr/bin/env zsh
+#~/.oh_my_zsh/themes/jangui2.zsh-theme 
 
-# user, host, full path, and time/date on two lines for easier vgrepping
+# adapted from nicoulaj theme
 
-function hg_prompt_info {
-  if (( $+commands[hg] )) && grep -q "prompt" ~/.hgrc 2> /dev/null; then
-    hg prompt --angle-brackets "\
-<hg:%{$fg[magenta]%}<branch>%{$reset_color%}><:%{$fg[magenta]%}<bookmark>%{$reset_color%}>\
-</%{$fg[yellow]%}<tags|%{$reset_color%}, %{$fg[yellow]%}>%{$reset_color%}>\
-%{$fg[red]%}<status|modified|unknown><update>%{$reset_color%}<
-patches: <patches|join( → )|pre_applied(%{$fg[yellow]%})|post_applied(%{$reset_color%})|pre_unapplied(%{$fg_bold[black]%})|post_unapplied(%{$reset_color%})>>" 2>/dev/null
-  fi
-}
+# ------------------------------------------------------------------------------
+# Prompt for the Zsh shell:
+#   * One line.
+#   * VCS info on the right prompt.
+#   * Only shows the path on the left prompt by default.
+#   * Crops the path to a defined length and only shows the path relative to
+#     the current VCS repository root.
+#   * Wears a different color wether the last command succeeded/failed.
+#   * option to show Shows user@hostname only if connected through SSH or na
+#   * Shows if logged in as root or not.
+# ------------------------------------------------------------------------------
 
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%}+"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%}✱"
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%}✗"
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%}➦"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%}✂"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[blue]%}✈"
-ZSH_THEME_GIT_PROMPT_SHA_BEFORE=" %{$fg[blue]%}"
-ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$reset_color%}"
+# Customizable parameters.
+PROMPT_PATH_MAX_LENGTH=30
+#PROMPT_DEFAULT_END=❯
+#PROMPT_ROOT_END=❯❯❯
+#PROMPT_DEFAULT_END=" ><>"
+PROMPT_DEFAULT_END=" :>"
+PROMPT_ROOT_END=">>"
+PROMPT_SUCCESS_COLOR=$FG[071]
+PROMPT_FAILURE_COLOR=$FG[124]
+PROMPT_VCS_INFO_COLOR=$FG[242]
+NAME_COLOR=$fg_bold[megenta]
+AT_COLOR=$fg_bold[green]
+HOSTNAME_BRACKET=$fg_bold[blue]
 
-function mygit() {
-  if [[ "$(git config --get oh-my-zsh.hide-status)" != "1" ]]; then
-    ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$(git_prompt_short_sha)$(git_prompt_status)%{$fg_bold[blue]%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-  fi
-}
+# Set required options.
+setopt promptsubst
 
-function retcode() {}
+# Load required modules.
+autoload -U add-zsh-hook
+autoload -Uz vcs_info
 
-# alternate prompt with git & hg
-PROMPT=$'%{$fg_bold[blue]%}┌─[%{$fg_bold[magenta]%}%n%b%{$fg_bold[green]%}@%{$fg_bold[magenta]%}%m%{$fg_bold[blue]%}]%{$reset_color%} - %{$fg_bold[blue]%}[%{$fg_bold[white]%}%~%{$fg_bold[blue]%}]%{$reset_color%} - %{$fg_bold[blue]%}<$(mygit)$(hg_prompt_info)>%{$reset_color%} 
-%{$fg_bold[blue]%}└─[%{$fg_bold[green]%}%?$(retcode)%{$fg_bold[blue]%}] %{$fg_bold[red]%}$%{$reset_color%} '
-PS2=$' \e[0;34m%}%B>%{\e[0m%}%b '
+# Add hook for calling vcs_info before each command.
+add-zsh-hook precmd vcs_info
 
-# PROMPT=$'%{$fg_bold[blue]%}┌─[%{$fg_bold[green]%}%n%b%{$fg[yellow]%}@%{$fg[black]%}%m%{$fg_bold[blue]%}]%{$reset_color%} - %{$fg_bold[blue]%}[%{$fg_bold[white]%}%~%{$fg_bold[blue]%}]%{$reset_color%} - %{$fg_bold[blue]%}[%b%{$fg[yellow]%}'%D{"%Y-%m-%d %I:%M:%S"}%b$'%{$fg_bold[blue]%}]
-# %{$fg_bold[blue]%}└─[%{$fg_bold[magenta]%}%?$(retcode)%{$fg_bold[blue]%}] <$(mygit)$(hg_prompt_info)>%{$reset_color%} '
+# Set vcs_info parameters.
+zstyle ':vcs_info:*' enable hg bzr git
+zstyle ':vcs_info:*:*' check-for-changes true # Can be slow on big repos.
+zstyle ':vcs_info:*:*' unstagedstr '!'
+zstyle ':vcs_info:*:*' stagedstr '+'
+zstyle ':vcs_info:*:*' actionformats "%S" "%r/%s/%b %u%c (%a)"
+zstyle ':vcs_info:*:*' formats "%S" "%r/%s/%b %u%c"
+zstyle ':vcs_info:*:*' nvcsformats "%~" ""
+
+# Define prompts.
+PROMPT="%{$HOSTNAME_BRACKET%}[%{$NAME_COLOR%}%n%{$AT_COLOR%}@%{$NAME_COLOR%}%m%{$HOSTNAME_BRACKET%}] %(0?.%{$PROMPT_SUCCESS_COLOR%}.%{$PROMPT_FAILURE_COLOR%})%{$FX[bold]%}%$PROMPT_PATH_MAX_LENGTH<..<"'${vcs_info_msg_0_%%.}'"%<<%(!.$PROMPT_ROOT_END.$PROMPT_DEFAULT_END)%{$FX[no-bold]%}%{$FX[reset]%} "
+
+RPROMPT="%{$PROMPT_VCS_INFO_COLOR%}"'$vcs_info_msg_1_'"%{$FX[reset]%}"
+

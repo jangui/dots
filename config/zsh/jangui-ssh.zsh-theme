@@ -25,9 +25,9 @@ PROMPT_ROOT_END=">>"
 PROMPT_SUCCESS_COLOR=$FG[071]
 PROMPT_FAILURE_COLOR=$FG[124]
 PROMPT_VCS_INFO_COLOR=$FG[242]
-NAME_COLOR=$fg_bold[magenta]
+NAME_COLOR=$fg_bold[blue]
 AT_COLOR=$fg_bold[green]
-HOSTNAME_BRACKET=$fg_bold[blue]
+HOSTNAME_BRACKET=$fg_bold[green]
 
 # Set required options.
 setopt promptsubst
@@ -53,7 +53,3 @@ PROMPT="%{$HOSTNAME_BRACKET%}[%{$NAME_COLOR%}%n%{$AT_COLOR%}@%{$NAME_COLOR%}%m%{
 
 RPROMPT="%{$PROMPT_VCS_INFO_COLOR%}"'$vcs_info_msg_1_'"%{$FX[reset]%}"
 
-#below prompt will display username and hostname only when connected via ssh
-#(needs fix)
-#${SSH_TTY:+[%n@%m]} <- this words doe
-#PROMPT="${SSH_TTY:+%{$HOSTNAME_BRACKET%}[%{$NAME_COLOR%}%n%{$AT_COLOR%}@%{$NAME_COLOR%}%m%{$HOSTNAME_BRACKET%}] }%(0?.%{$PROMPT_SUCCESS_COLOR%}.%{$PROMPT_FAILURE_COLOR%})%{$FX[bold]%}%$PROMPT_PATH_MAX_LENGTH<..<"'${vcs_info_msg_0_%%.}'"%<<%(!.$PROMPT_ROOT_END.$PROMPT_DEFAULT_END)%{$FX[no-bold]%}%{$FX[reset]%} "

@@ -38,8 +38,8 @@ rm -rf $HOME/.profile
 ln -s $HOME/.dots/config/profile $HOME/.profile
 rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
-rm -rf $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
-ln -s $HOME/.dots/config/zsh/jangui2.zsh-theme $HOME/.oh-my-zsh/themes/jangui2.zsh-theme
+rm -rf $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
+ln -s $HOME/.dots/config/zsh/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
 rm -rf $HOME/.banner 
 cp $HOME/.dots/config/zsh/banner $HOME/.banner
 rm -rf $HOME/.xinitrc

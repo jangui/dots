@@ -12,7 +12,14 @@ export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
 export PATH=$PATH:$HOME/.dots/bin:$HOME/.local/bin
-export ZSH_THEME="jangui2"
+
+#zsh theme
+if [[ -n $SSH_CONNECTION ]]; then
+  export ZSH_THEME="jangui-ssh"
+else
+  export ZSH_THEME="jangui"
+fi
+
 
 #------aliases------
 # git 
