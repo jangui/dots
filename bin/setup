@@ -7,20 +7,20 @@ git config --global user.email "jaimitino@gmail.com"
 #check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
-    sudo pacman -Syu && sudo pacman -S zsh vim curl lolcat python3 python3-pip compton i3status i3 dmenu feh termite xorg-server xorg-xinit
+    sudo pacman -Syu && sudo pacman -S zsh vim lolcat compton i3status i3 dmenu feh termite xorg-server xorg-xinit
     sudo rm -rf $HOME/.config/termite /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/termite $HOME/.config/termite
     sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
 elif [ $distro == "ubuntu" ] || [ $distro == "raspbian" ]; then
-    sudo apt update && sudo apt upgrade && sudo apt install zsh vim curl lolcat python3-pip 
+    sudo apt update && sudo apt upgrade && sudo apt install zsh vim
 else
     echo "unknown distro: $distro" 
     exit 1
 fi
 
 #set default shell
-chsh $(whoami) -s $(which zsh)
+sudo chsh $(whoami) -s $(which zsh)
 
 #install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
