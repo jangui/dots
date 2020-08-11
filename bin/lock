@@ -8,8 +8,8 @@ i3lock --color=202020 \
        --datecolor=ff0000ff \
        --ringwrongcolor=00000000 \
        --wrongcolor=00000000 \
-       --veriftext="Yee" \
-       --wrongtext="Nah..." \
+       --veriftext="oh yis" \
+       --wrongtext="Nuuuu." \
        --timestr="%I:%M:%S %P" \
        --radius 120 \
        --datestr="%d/%m/%Y" \
