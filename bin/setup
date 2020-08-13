@@ -42,13 +42,13 @@ rm -rf $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
 rm -rf $HOME/.banner 
 cp $HOME/.dots/config/zsh/banner $HOME/.banner
+chmod +x $HOME/.banner
 rm -rf $HOME/.xinitrc
 ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
 ln -s $HOME/.dots/config/xorg/Xresources $HOME/.Xresources
 touch $HOME/.dots/config/zsh/custom_rc
 touch $HOME/.dots/config/zsh/custom_env_vars
 touch $HOME/.dots/config/zsh/custom_aliases
-chmod +x $HOME/.banner
 
 #make trash folder
 mkdir -p $HOME/.trash
