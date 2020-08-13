@@ -57,4 +57,4 @@ mkdir -p $HOME/.trash
 sudo mkdir -p /root/.trash
 
 source $HOME/.zshrc
-echo "!! REMINDER: add emptying trash cronjob"
+echo "REMINDER: add emptying trash cronjob"
