@@ -35,6 +35,7 @@ del() {
       echo "$filename moved to trash"
     else
       if sudo mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
+        sudo chown $(whoami):$(whoami) $HOME/.trash/$newName
         echo "$filename moved to trash"
       else 
         echo "failed to move $filename to trash"
