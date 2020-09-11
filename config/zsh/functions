@@ -1,19 +1,21 @@
 #!/usr/bin/zsh
 
+# delete unwanted files
 rm_crap() {
     rm -rf $HOME/Dropbox/.dropbox.cache/*
 }
 
-#override cd so new shells open where we left off
+# override cd so new shells open where we left off
 cd() {
     builtin cd $1
     pwd > $HOME/.pwd
 }
 
-#move files to trash (cronjob will clean trash periodically)
+# move files to trash 
 del() {
   for filename in "$@" ; do
-    #check if file exists
+
+    # check if file exists
     if [ ! -f $filename ] ; then
       if [ ! -d $filename ] ; then
         echo "No such file or directory: $filename"
@@ -21,15 +23,15 @@ del() {
       fi
     fi
     
+    # check if file in trash w/ same name
     basefilename=$(basename $filename)
-    #check if file in trash w/ same name
     if [[ $(find $HOME/.trash/ -name "$basefilename" | wc -l) = 0 ]] ; then
       newName=$basefilename
     else
       newName=$basefilename.$(date +"%s")
     fi
 
-    #add to trash
+    # add to trash
     errfile="delErr.log"
     if mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
       echo "$filename moved to trash"
@@ -44,6 +46,17 @@ del() {
   done 
 }
 
+# upload file using sftp
 upload() {
   sftp $1 <<< "put $2"
+}
+
+# enter first docker container that matches grep
+enter() {
+  found=$(docker ps | grep $1 | awk {'print $1'} | head -1)
+  echo "no containers found associated with '$1'"
+  if [ -z $found ] ; then
+    return
+  fi
+  docker exec -it $found sh
 }
