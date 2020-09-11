@@ -54,8 +54,8 @@ upload() {
 # enter first docker container that matches grep
 enter() {
   found=$(docker ps | grep $1 | awk {'print $1'} | head -1)
-  echo "no containers found associated with '$1'"
   if [ -z $found ] ; then
+    echo "no containers found associated with '$1'"
     return
   fi
   docker exec -it $found sh
