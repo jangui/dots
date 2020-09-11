@@ -43,3 +43,7 @@ del() {
     fi
   done 
 }
+
+upload() {
+  sftp $1 <<< "put $2"
+}
