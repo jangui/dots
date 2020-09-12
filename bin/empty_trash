@@ -1,12 +1,10 @@
 #!/usr/bin/zsh
 
-# remove root's trash
-rm -rf $HOME/.trash
-mkdir $HOME/.trash
+if (rm -rf "$HOME/.trash" 2> /dev/null) then 
+  : # do nothing
+else 
+  sudo rm -rf "$HOME/.trash" 2> /dev/null
+fi
 
-# remove each users' trash
-for user in $(ls /home) ; do
-  rm -rf "/home/$user/.trash"
-  mkdir "/home/$user/.trash"
-  chown $user "/home/$user/.trash"
-done
+mkdir "$HOME/.trash"
+
