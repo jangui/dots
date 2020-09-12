@@ -31,18 +31,16 @@ del() {
       newName=$basefilename.$(date +"%s")
     fi
 
-    # add to trash
-    errfile="delErr.log"
-    if mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
-      echo "$filename moved to trash"
-    else
-      if sudo mv $filename $HOME/.trash/$newName --force 2>> $HOME/.trash/$errfile ; then
-        sudo chown -R $(whoami):$(whoami) $HOME/.trash/$newName
-        echo "$filename moved to trash"
-      else 
-        echo "failed to move $filename to trash"
-      fi
+    # make current user owner of file
+    if (chown -R $(whoami):$(whoami) $filename 2> /dev/null) then 
+      : # do nothing
+    else 
+      sudo chown -R $(whoami):$(whoami) $filename
     fi
+
+    # move to trash
+    mv $filename $HOME/.trash/$newName
+
   done 
 }
 
