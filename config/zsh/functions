@@ -23,9 +23,13 @@ del() {
       fi
     fi
     
-    # add timestamp
+    # add timestamp if name conflict
     basefilename=$(basename $filename)
-    newName=$basefilename.$(date +"%s")
+    if [[ $(find $HOME/.trash/ -maxdepth 1 -name "$basefilename" | wc -l) = 0 ]] ; then
+      newName=$basefilename
+    else
+      newName=$basefilename.$(date +"%s")
+    fi
 
     # move to trash
     if (mv $filename $HOME/.trash/$newName --force 2> /dev/null) then 
