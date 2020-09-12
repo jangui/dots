@@ -23,13 +23,9 @@ del() {
       fi
     fi
     
-    # check if file in trash w/ same name
+    # add timestamp
     basefilename=$(basename $filename)
-    if [[ $(find $HOME/.trash/ -name "$basefilename" | wc -l) = 0 ]] ; then
-      newName=$basefilename
-    else
-      newName=$basefilename.$(date +"%s")
-    fi
+    newName=$basefilename.$(date +"%s")
 
     # move to trash
     if (mv $filename $HOME/.trash/$newName --force 2> /dev/null) then 
