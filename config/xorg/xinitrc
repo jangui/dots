@@ -2,7 +2,7 @@
 ~/.fehbg
 compton &
 
-#change typematic delay and rate
+# change typematic delay and rate
 xset r rate 200 30
 
 exec i3

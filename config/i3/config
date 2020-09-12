@@ -192,11 +192,11 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-#lock screen
+# lock screen
 bindsym $mod+Control+l exec /home/jangui/.dots/bin/lock
 
-#volume controls
+# volume controls
 #bindsym $mod+Control+a exec /bin/bash /usr/bin/alsamixer
 
-#polybar
+# polybar
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh

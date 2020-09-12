@@ -1,10 +1,10 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
-#remove root's trash
+# remove root's trash
 rm -rf $HOME/.trash
 mkdir $HOME/.trash
 
-#remove each users' trash
+# remove each users' trash
 for user in $(ls /home) ; do
   rm -rf "/home/$user/.trash"
   mkdir "/home/$user/.trash"

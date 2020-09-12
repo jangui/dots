@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-#~/.oh_my_zsh/themes/jangui2.zsh-theme 
+# ~/.oh_my_zsh/themes/jangui-ssh.zsh-theme 
 
 # adapted from nicoulaj theme
 

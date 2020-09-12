@@ -1,11 +1,11 @@
 #!/usr/bin/zsh
 # ~/.zshrc
 
-#functions
+# functions
 source $HOME/.dots/config/zsh/functions
 
 #----environment variables----
-#system vars (override any in custom_rc)
+# system vars (override any in custom_rc)
 export LANG="C.UTF-8"
 export TERMINAL="termite"
 export TERM="xterm"
@@ -13,7 +13,7 @@ export EDITOR="vim"
 export BROWSER="firefox"
 export PATH=$PATH:$HOME/.dots/bin:$HOME/.local/bin
 
-#zsh theme
+# zsh theme
 if [[ -n $SSH_CONNECTION ]]; then
   export ZSH_THEME="jangui-ssh"
 else
@@ -29,16 +29,16 @@ alias gita='git add .'
 # xclip
 alias xclip='xclip -selection c'
 
-#screenshot
+# screenshot
 alias screenshot='sleep 2; import -window root screenshot.png'
 
-#lastpass
+# lastpass
 alias passplz='lpass show -pc'
 
-#venv
+# venv
 alias venv="source $HOME/.venv/bin/activate"
 
-#place a Makefile template in current dir
+# place a Makefile template in current dir
 alias maket="cp $HOME/dots/templates/Makefile ."
 
 #---unique configs----
@@ -47,7 +47,7 @@ source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
 source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
 
 #-------other--------
-#print banner text (unique banner per system)
+# print banner text
 $HOME/.banner | lolcat
 
 # open shell in last working directory

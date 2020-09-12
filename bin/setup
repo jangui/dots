@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#git setup
+# git setup
 git config --global user.name "jangui"
 git config --global user.email "jaimitino@gmail.com"
 
-#check distro, update & a few downloads
+# check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
     sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit lolcat
@@ -19,17 +19,17 @@ else
     exit 1
 fi
 
-#set default shell
+# set default shell
 sudo chsh $(whoami) -s $(which zsh)
 
-#install oh-my-zsh
+# install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 
-#zsh syntax highlighting
+# zsh syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
-#setup configs
+# setup configs
 rm -rf $HOME/.vimrc 
 ln -s $HOME/.dots/config/vim/vimrc $HOME/.vimrc
 rm -rf $HOME/.zshrc 
@@ -50,10 +50,10 @@ touch $HOME/.dots/config/zsh/custom_rc
 touch $HOME/.dots/config/zsh/custom_env_vars
 touch $HOME/.dots/config/zsh/custom_aliases
 
-#make trash folder
+# make trash folder
 mkdir -p $HOME/.trash
 
-#make root trash folder
+# make root trash folder
 sudo mkdir -p /root/.trash
 
 source $HOME/.zshrc

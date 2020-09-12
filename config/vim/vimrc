@@ -69,6 +69,7 @@ set magic
 
 " Show matching brackets when text indicator is over them
 "set showmatch 
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -118,9 +119,9 @@ set tabstop=2
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+set ai " Auto indent
+set si " Smart indent
+set wrap " Wrap lines
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -147,64 +148,64 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-"set color of line numbers
+" set color of line numbers
 highlight LineNr ctermfg=red
 
-"use system clipboard
+" use system clipboard
 set clipboard=unnamedplus
 
 """ WINDOW (SPLITS) MANAGEMENT / NAGIVATION """
 
-"remap control-w + h/j/k/l to control-h/j/k/l (window navigation)
+" remap control-w + h/j/k/l to control-h/j/k/l (window navigation)
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-"remapping turning current window into tab
+" remapping turning current window into tab
 noremap <C-t> <C-w>T
 
-"remapping close all windows in current tab except current window
+" remapping close all windows in current tab except current window
 noremap <C-o> <C-w>o
 
-"remapping normalize all window sizes
+" remapping normalize all window sizes
 noremap <C-=> <C-w>=
 
-"change default vertical split to split below
+" change default vertical split to split below
 set splitbelow
 
-"change default horizontal split to split right
+" change default horizontal split to split right
 set splitright
 
-"close current window
+" close current window
 map <leader>c :close<cr>
 
-"open file explore & open file in horizontal split
+" open file explore & open file in horizontal split
 map <leader>h :Sexplore<cr>
 
-"open file explore & open file in vertical split (on the right)
+" open file explore & open file in vertical split (on the right)
 map <leader>v :Vexplore!<cr>
 
-"open file explore & open file in vertical split (on the left)
+" open file explore & open file in vertical split (on the left)
 map <leader>vl :Vexplore<cr>
 
 """ MISC MAPPINGS """
 
-"toggle between spell checking
+" toggle between spell checking
 map <leader>ss :setlocal spell!<cr>
 
-"disable line numbers
+" disable line numbers
 map <leader>nn :set nonumber<cr>
 
-"enable line numbers
+" enable line numbers
 map <leader>n :set number<cr>
 
-"run a shell
+" run a shell
 map <leader>s :shell<cr>
 
-"make (Makefile in cwd)
+" make (Makefile in cwd)
 map <leader>m :make<cr>
 
-"make clean (Makefile in cwd)
+" make clean (Makefile in cwd)
 map <leader>mc :make clean<cr>
 
