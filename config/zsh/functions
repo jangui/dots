@@ -60,3 +60,9 @@ enter() {
   fi
   docker exec -it $found sh
 }
+
+# run ssha and add keys
+ssha() {
+  eval `ssh-agent -s`
+  ssh-add $HOME/.ssh/id_rsa_git
+}

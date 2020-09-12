@@ -7,13 +7,13 @@ git config --global user.email "jaimitino@gmail.com"
 # check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
-    sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit lolcat
+    sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit alsa-utils pulseaudio
     sudo rm -rf $HOME/.config/termite /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/termite $HOME/.config/termite
     sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
 elif [ $distro == "ubuntu" ] || [ $distro == "raspbian" ]; then
-    sudo apt update && sudo apt upgrade && sudo apt install zsh vim lolcat
+    sudo apt update && sudo apt upgrade && sudo apt install zsh vim
 else
     echo "unknown distro: $distro" 
     exit 1
