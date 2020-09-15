@@ -43,6 +43,28 @@ del() {
 
 # upload file using sftp
 upload() {
+  if [ $# -ne 2 ]; then
+    echo "usage: upload <user>@<host> <file>"
+    return
+  fi
+
+  # check if file exists
+  if [ ! -f $2 ]; then
+    if [ ! -d $2 ] ; then
+      echo "No such file or directory: $2"
+      return
+    fi
+  fi
+
+  # if directory, tar -> upload -> delete tar
+  if [ -d $2 ]; then
+    compressed=$HOME/$(basename $2).tar.gz
+    tar zcf $compressed $2
+    sftp $1 <<< "put $compressed"
+    rm -rf $compressed
+    return
+  fi
+
   sftp $1 <<< "put $2"
 }
 
