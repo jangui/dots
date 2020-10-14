@@ -7,7 +7,7 @@ git config --global user.email "jaimitino@gmail.com"
 # check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
-    sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit alsa-utils pulseaudio
+    sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit alsa-utils pulseaudio xorg-xrandr
     sudo rm -rf $HOME/.config/termite /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/termite $HOME/.config/termite
