@@ -20,7 +20,6 @@ else
   export ZSH_THEME="jangui"
 fi
 
-
 #------aliases------
 # git 
 alias gitc='git commit -m'
@@ -41,12 +40,10 @@ alias venv="source $HOME/.venv/bin/activate"
 # place a Makefile template in current dir
 alias maket="cp $HOME/dots/templates/Makefile ."
 
-#---unique configs----
-source $HOME/.dots/config/zsh/custom_rc #unique to each system
-source $HOME/.dots/config/zsh/custom_env_vars #unique to each system
-source $HOME/.dots/config/zsh/custom_aliases  #unique to each system
-
 #-------other--------
+# unique system config
+source $HOME/.dots/config/zsh/custom_rc
+
 # print banner text
 $HOME/.banner | lolcat
 
