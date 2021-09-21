@@ -12,6 +12,7 @@ export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
 export PATH=$PATH:$HOME/.dots/bin:$HOME/.local/bin
+export npm_config_prefix="$HOME/.local"
 
 # zsh theme
 if [[ -n $SSH_CONNECTION ]]; then
