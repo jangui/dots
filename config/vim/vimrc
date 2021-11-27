@@ -209,3 +209,9 @@ map <leader>m :make<cr>
 " make clean (Makefile in cwd)
 map <leader>mc :make clean<cr>
 
+" remap uppercase / lowercase toggling
+vnoremap l u
+vnoremap L U
+vmap u <Nop>
+vmap U <Nop>
+
