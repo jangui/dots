@@ -2,7 +2,7 @@
 
 # git setup
 git config --global user.name "jangui"
-git config --global user.email "jaimitino@gmail.com"
+git config --global user.email "jaime.dangui@gmail.com"
 
 # check distro, update & a few downloads
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
