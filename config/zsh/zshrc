@@ -25,6 +25,7 @@ fi
 # git 
 alias gitc='git commit -m'
 alias gita='git add .'
+alias gits='git status'
 
 # xclip
 alias xclip='xclip -selection c'
