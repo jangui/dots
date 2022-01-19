@@ -14,7 +14,6 @@ cd() {
 # move files to trash 
 del() {
   for filename in "$@" ; do
-
     # check if file exists
     if [ ! -f $filename ] ; then
       if [ ! -d $filename ] ; then
@@ -25,20 +24,25 @@ del() {
     
     # add timestamp if name conflict
     basefilename=$(basename $filename)
-    if [[ $(find $HOME/.trash/ -maxdepth 1 -name "$basefilename" | wc -l) = 0 ]] ; then
+    if [[ $(find $HOME/.trashcan/ -maxdepth 1 -name "$basefilename" | wc -l) = 0 ]] ; then
       newName=$basefilename
     else
       newName=$basefilename.$(date +"%s")
     fi
 
     # move to trash
-    if (mv $filename $HOME/.trash/$newName --force 2> /dev/null) then 
-      : # do nothing
-    else 
-      sudo mv $filename $HOME/.trash/$newName --force
-    fi
+    trash="mv $filename $HOME/.trashcan/$newName 2> /dev/null;"
+    forceTrash="mv $filename $HOME/.trashcan/$newName --force 2> /dev/null;"
+    eval "$trash" || { eval "sudo $trash" } || { eval "sudo $forceTrash" }
 
-  done 
+  done
+}
+
+#empty trash
+empty_trash() {
+    delete='rm -rf $HOME/.trashcan 2> /dev/null;'
+    eval "$delete" || { eval "sudo $delete" }
+    mkdir "$HOME/.trashcan";
 }
 
 # upload file using sftp
