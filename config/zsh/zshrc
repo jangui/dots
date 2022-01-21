@@ -5,9 +5,9 @@
 source $HOME/.dots/config/zsh/functions
 
 #----environment variables----
-# system vars (override any in custom_rc)
-export LANG="C.UTF-8"
-export TERMINAL="termite"
+# system vars (override in custom_rc)
+export LANG="en_US.UTF-8"
+export TERMINAL=""
 export TERM="xterm"
 export EDITOR="vim"
 export BROWSER="firefox"
@@ -30,9 +30,6 @@ alias gits='git status'
 # xclip
 alias xclip='xclip -selection c'
 
-# screenshot
-alias screenshot='sleep 2; import -window root screenshot.png'
-
 # lastpass
 alias passplz='lpass show -pc'
 
@@ -45,9 +42,6 @@ alias maket="cp $HOME/dots/templates/Makefile ."
 #-------other--------
 # unique system config
 source $HOME/.dots/config/zsh/custom_rc
-
-# print banner text
-$HOME/.banner | lolcat
 
 # open shell in last working directory
 # .pwd created by custom cd func

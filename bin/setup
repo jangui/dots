@@ -1,21 +1,78 @@
 #!/bin/bash
+set -xe
 
 # git setup
 git config --global user.name "jangui"
 git config --global user.email "jaime.dangui@gmail.com"
 
-# check distro, update & a few downloads
+# packages to innstall
+packages="zsh vim"
+
+# set up based on distro
 distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
 if [ $distro == "arch" ]; then
-    sudo pacman -Syu && sudo pacman -S zsh vim compton i3 i3status i3lock-color dmenu feh termite xorg-server xorg-xinit alsa-utils pulseaudio xorg-xrandr
-    sudo rm -rf $HOME/.config/termite /etc/pacman.conf $HOME/.xinitrc
+    # install trizen
+    mkdir $HOME/build
+    git clone https://aur.archlinux.org/trizen.git $HOME/build/trizen
+    cd $HOME/build/trizen
+    makepkg -si
+    aur_packages=""
+    cd $HOME
+
+    # display server
+    packages+=" xorg-server xorg-init"
+    echo "REMINDER: install graphics driver"
+
+    # monitor configuration
+    packages+=" xorg-xrandr"
+
+    # window manager
+    packages+=" i3"
+
+    # status bar
+    aur_packages+="polybar"
+    ln -s $HOME/.dots/config/polybar $HOME/.config/
+    chmod +x $HOME/.config/polybar/launch.sh
+
+    # application launcher
+    packages+=" dmenu"
+
+    # wallpaper
+    packages+=" feh"
+    ln -s $HOME/.dots/config/fehbg $HOME/.fehbg
+    chmod +x $HOME/.fehbg
+    echo "REMINDER: save wallpaper to ~/.wallpaper"
+
+    # fonts
+    packages+=" noto-fonts"
+
+    # audio
+    packages+=" pulseaudio pulseaudio-alsa"
+
+    # ssh
+    packages+=" openssh"
+    mkdir $HOME/.ssh
+    chmod 700 $HOME/.ssh
+    
+    # install packages
+    sudo pacman -Syu
+    sudo pacman -S "$packages"
+    sudo trizen -S "$aur_packages"
+    
+    # pacman setup
+    sudo rm -rf /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
-    sudo ln -s $HOME/.dots/config/termite $HOME/.config/termite
-    sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
+
+    # x-org config
+    sudo rm -rf $HOME/.xinitrc
     sudo ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
-    sudo ln -s $HOME/.dots/config/xorg/Xresources $HOME/.Xresources
-elif [ $distro == "ubuntu" ] || [ $distro == "raspbian" ]; then
-    sudo apt update && sudo apt upgrade && sudo apt install zsh vim
+
+    # i3 setup
+    sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
+
+elif [ $distro == "ubuntu" ]; then
+    sudo apt update && sudo apt upgrade -y 
+    sudo apt install "$packages"
 else
     echo "unknown distro: $distro" 
     exit 1
@@ -24,35 +81,36 @@ fi
 # set default shell
 sudo chsh $(whoami) -s $(which zsh)
 
-# setup configs
+# vim config
 rm -rf $HOME/.vimrc 
 ln -s $HOME/.dots/config/vim/vimrc $HOME/.vimrc
-rm -rf $HOME/.zshrc 
-ln -s $HOME/.dots/config/zsh/zshrc $HOME/.zshrc
-rm -rf $HOME/.profile 
-ln -s $HOME/.dots/config/profile $HOME/.profile
+
+# install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+
+# set up oh my zsh themes
 rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 rm -rf $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
 ln -s $HOME/.dots/config/zsh/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
-rm -rf $HOME/.banner 
-cp $HOME/.dots/config/zsh/banner $HOME/.banner
-chmod +x $HOME/.banner
-touch $HOME/.dots/config/zsh/custom_rc
-
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
 
 # zsh syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
+# zsh config
+rm -rf $HOME/.zshrc 
+ln -s $HOME/.dots/config/zsh/zshrc $HOME/.zshrc
+touch $HOME/.dots/config/zsh/custom_rc
+touch $HOME/.zprofile
 
-# make trash folder
-mkdir -p $HOME/.trash
+# add startx to zprofile
+if [ $distro == "arch" ]; then
+    echo "startx" >> $HOME/.zprofile
+if 
 
-# make root trash folder
-sudo mkdir -p /root/.trash
+# make trash folders
+mkdir -p $HOME/.trashcan
+sudo mkdir -p /root/.trashcan
 
 source $HOME/.zshrc
-echo "REMINDER: add emptying trash cronjob"
