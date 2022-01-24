@@ -14,6 +14,12 @@ cd() {
 # move files to trash 
 del() {
   for filename in "$@" ; do
+    # if symlink, delete
+    if [[ -L $filename ]]; then 
+        rm -rf $filename || sudo rm -rf $filename
+        continue
+    fi
+
     # check if file exists
     if [ ! -f $filename ] ; then
       if [ ! -d $filename ] ; then
@@ -21,7 +27,7 @@ del() {
         continue
       fi
     fi
-    
+
     # add timestamp if name conflict
     basefilename=$(basename $filename)
     if [[ $(find $HOME/.trashcan/ -maxdepth 1 -name "$basefilename" | wc -l) = 0 ]] ; then
