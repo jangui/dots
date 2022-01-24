@@ -19,15 +19,26 @@ if [ $distro == "arch" ]; then
     aur_packages=""
     cd $HOME
 
+    # terminal emulator
+    packages+=" alacritty"
+    ln -s $HOME/.dots/config/alacritty/alacritty.yml $HOME/.alacritty.yml
+
     # display server
     packages+=" xorg-server xorg-init"
     echo "REMINDER: install graphics driver"
+    sudo rm -rf $HOME/.xinitrc
+    ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
+    packages+=" xorg-xset" # typematic delay & rate
+
+    # compositor
+    packages+=" picom"
 
     # monitor configuration
     packages+=" xorg-xrandr"
 
     # window manager
     packages+=" i3"
+    ln -s $HOME/.dots/config/i3 $HOME/.config/i3
 
     # status bar
     aur_packages+="polybar"
@@ -39,7 +50,7 @@ if [ $distro == "arch" ]; then
 
     # wallpaper
     packages+=" feh"
-    ln -s $HOME/.dots/config/fehbg $HOME/.fehbg
+    ln -s $HOME/.dots/bin/fehbg $HOME/.fehbg
     chmod +x $HOME/.fehbg
     echo "REMINDER: save wallpaper to ~/.wallpaper"
 
@@ -53,6 +64,9 @@ if [ $distro == "arch" ]; then
     packages+=" openssh"
     mkdir $HOME/.ssh
     chmod 700 $HOME/.ssh
+
+    # extra
+    packages+=" htop"
     
     # install packages
     sudo pacman -Syu
@@ -63,13 +77,6 @@ if [ $distro == "arch" ]; then
     sudo rm -rf /etc/pacman.conf
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
 
-    # x-org config
-    sudo rm -rf $HOME/.xinitrc
-    sudo ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
-
-    # i3 setup
-    sudo ln -s $HOME/.dots/config/i3 $HOME/.config/i3
-
 elif [ $distro == "ubuntu" ]; then
     sudo apt update && sudo apt upgrade -y 
     sudo apt install "$packages"
@@ -77,6 +84,11 @@ else
     echo "unknown distro: $distro" 
     exit 1
 fi
+
+# setup ssh config
+[ ! -d $HOME/.ssh/ ] && mkdir $HOME/.ssh/ && chmod 700 $HOME/.ssh/
+rm -rf $HOME/.ssh/config
+ln -s $HOME/.dots/config/ssh/config $HOME/.ssh/config
 
 # set default shell
 sudo chsh $(whoami) -s $(which zsh)

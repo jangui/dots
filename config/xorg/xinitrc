@@ -1,8 +1,13 @@
 # ~/.xinitrc
 
+# wall paper
 ~/.fehbg &
 
-# change typematic delay and rate
-xset r rate 200 30
+# compositor
+picom -f &
 
+# change typematic delay and rate
+xset r rate 200 40
+
+# window manager
 exec i3

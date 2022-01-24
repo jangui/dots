@@ -1,0 +1,7 @@
+Host github.com
+  Hostname github.com
+  IdentityFile ~/.ssh/id_rsa_git
+  User git
+
+Host *
+  ForwardAgent yes
