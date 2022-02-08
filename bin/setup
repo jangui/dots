@@ -4,6 +4,7 @@ set -xe
 # git setup
 git config --global user.name "jangui"
 git config --global user.email "jaime.dangui@gmail.com"
+git config --global init.defaultBranch master
 
 # packages to innstall
 packages="zsh vim"
