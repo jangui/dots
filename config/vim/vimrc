@@ -111,9 +111,12 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
+" tab size == 4 spaces
 set shiftwidth=4
 set tabstop=4
+
+" use spaces instead of tabs
+set expandtab
 
 " Linebreak on 500 characters
 set lbr
@@ -208,6 +211,12 @@ map <leader>m :make<cr>
 
 " make clean (Makefile in cwd)
 map <leader>mc :make clean<cr>
+
+" toggle tab size 2
+map <leader>t2 :set tabstop=2 shiftwidth=2<cr>
+
+" toggle tab size 4
+map <leader>t4 :set tabstop=4 shiftwidth=4<cr>
 
 " unmap uppercase / lowercase toggling
 " (can still use ~ built in instead)
