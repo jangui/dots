@@ -1,4 +1,3 @@
-#!/usr/bin/zsh
 
 # delete unwanted files
 rm_crap() {
@@ -37,16 +36,15 @@ del() {
     fi
 
     # move to trash
-    trash="mv $filename $HOME/.trashcan/$newName 2> /dev/null;"
-    forceTrash="mv $filename $HOME/.trashcan/$newName --force 2> /dev/null;"
+    trash="mv $filename $HOME/.trashcan/$newName 2> /dev/null"
+    forceTrash="mv $filename $HOME/.trashcan/$newName --force 2> /dev/null"
     eval "$trash" || { eval "sudo $trash" } || { eval "sudo $forceTrash" }
-
   done
 }
 
 #empty trash
 empty_trash() {
-    delete='rm -rf $HOME/.trashcan 2> /dev/null;'
+    delete='rm -rf $HOME/.trashcan 2> /dev/null'
     eval "$delete" || { eval "sudo $delete" }
     mkdir "$HOME/.trashcan";
 }

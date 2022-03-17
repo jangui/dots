@@ -71,8 +71,8 @@ if [ $distro == "arch" ]; then
     
     # install packages
     sudo pacman -Syu
-    sudo pacman -S "$packages"
-    sudo trizen -S "$aur_packages"
+    sudo pacman -S $packages
+    sudo trizen -S $aur_packages
     
     # pacman setup
     sudo rm -rf /etc/pacman.conf
@@ -80,7 +80,7 @@ if [ $distro == "arch" ]; then
 
 elif [ $distro == "ubuntu" ]; then
     sudo apt update && sudo apt upgrade -y 
-    sudo apt install "$packages"
+    sudo apt install $packages
 else
     echo "unknown distro: $distro" 
     exit 1
@@ -120,10 +120,11 @@ touch $HOME/.zprofile
 # add startx to zprofile
 if [ $distro == "arch" ]; then
     echo "startx" >> $HOME/.zprofile
-if 
+fi 
 
 # make trash folders
 mkdir -p $HOME/.trashcan
 sudo mkdir -p /root/.trashcan
 
-source $HOME/.zshrc
+echo "Setup successful!"
+
