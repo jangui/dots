@@ -4,10 +4,13 @@
 ~/.fehbg &
 
 # compositor
-picom -f &
+picom -f --config ~/.picom.conf &
 
 # change typematic delay and rate
 xset r rate 200 40
 
+# load Xreasources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$Home ~/.Xresources
+ 
 # window manager
 exec i3

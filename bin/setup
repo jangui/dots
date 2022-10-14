@@ -21,14 +21,15 @@ if [ $distro == "arch" ]; then
     cd $HOME
 
     # terminal emulator
-    packages+=" alacritty"
-    ln -s $HOME/.dots/config/alacritty/alacritty.yml $HOME/.alacritty.yml
+    packages+=" rxvt-unicode"
 
     # display server
     packages+=" xorg-server xorg-init"
     echo "REMINDER: install graphics driver"
     sudo rm -rf $HOME/.xinitrc
     ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
+    sudo rm -rf $HOME/.xResources
+    ln -s $HOME/.dots/config/xorg/xResources $HOME/.xResources
     packages+=" xorg-xset" # typematic delay & rate
 
     # compositor
@@ -39,6 +40,7 @@ if [ $distro == "arch" ]; then
 
     # window manager
     packages+=" i3"
+    sudo rm -rf $HOME/.config/i3
     ln -s $HOME/.dots/config/i3 $HOME/.config/i3
 
     # status bar

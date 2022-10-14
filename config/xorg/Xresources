@@ -1,0 +1,8 @@
+! ~/.Xresources
+
+! rxvt-unicode config
+URxvt*scrollBar: false
+URxvt*background: black
+URxvt*foreground: white
+URxvt*font: xft:mono:size=12
+URxvt*termName: rxvt-unicode
