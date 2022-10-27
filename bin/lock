@@ -1,18 +1,28 @@
 #!/bin/bash
 
-i3lock --color=202020 \
-       --ringcolor=ff0000ff \
-       --insidevercolor=00000000 \
-       --insidecolor=00000000 \
-       --timecolor=ff0000ff \
-       --datecolor=ff0000ff \
-       --ringwrongcolor=00000000 \
-       --wrongcolor=00000000 \
-       --veriftext="oh yis" \
-       --wrongtext="Nuuuu." \
-       --timestr="%I:%M:%S %P" \
+i3lock \
+       --inside-color='#000000' \
+       --ring-color='#130b24' \
+       --time-color='#8b8794' \
+       --date-color='#8b8794' \
+       --keyhl-color='#ffffff' \
+       --bshl-color='#69000c' \
+       \
+       --verif-color='#ffffff' \
+       --insidever-color='#000000' \
+       --ringver-color='#ffffff' \
+       --verif-text="success" \
+       \
+       --wrong-color='#000000' \
+       --insidewrong-color='#000000' \
+       --ringwrong-color='#520000' \
+       --wrong-text="no no" \
+       \
+       --time-str="%I:%M:%S %P" \
+       --date-str="%d/%m/%Y" \
+       \
        --radius 120 \
-       --datestr="%d/%m/%Y" \
        --blur=5 \
        -f \
+       -e \
        -k 

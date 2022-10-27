@@ -48,6 +48,12 @@ if [ $distro == "arch" ]; then
     ln -s $HOME/.dots/config/polybar $HOME/.config/
     chmod +x $HOME/.config/polybar/launch.sh
 
+    # i3 lock
+    aur_package+=" i3-lock"
+    rm -rf $HOME/.lock
+    ln -s $HOME/.dots/bin/lock $HOME/.lock
+    chmod +x $HOME/.lock
+
     # application launcher
     packages+=" dmenu"
 
