@@ -22,6 +22,8 @@ if [ $distro == "arch" ]; then
 
     # terminal emulator
     packages+=" rxvt-unicode"
+    term="rxvt-unicode"
+    terminal="rxvt-unicode"
 
     # display server
     packages+=" xorg-server xorg-init"
@@ -87,6 +89,8 @@ if [ $distro == "arch" ]; then
     sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
 
 elif [ $distro == "ubuntu" ]; then
+    term="gnome-terminal"
+    terminal="gnome-terminal"
     sudo apt update && sudo apt upgrade -y 
     sudo apt install $packages
 else
@@ -123,6 +127,8 @@ chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 rm -rf $HOME/.zshrc 
 ln -s $HOME/.dots/config/zsh/zshrc $HOME/.zshrc
 touch $HOME/.dots/config/zsh/custom_rc
+echo "export TERM=$term" >> $HOME/.dots/config/zsh/custom_rc
+echo "export TERMINAL=$terminal" >> $HOME/.dots/config/zsh/custom_rc
 touch $HOME/.zprofile
 
 # add startx to zprofile

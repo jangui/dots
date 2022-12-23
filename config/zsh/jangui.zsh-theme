@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# ~/.oh_my_zsh/themes/jangui.zsh-theme 
+# ~/.oh_my_zsh/themes/jangui-ssh.zsh-theme 
 
 # adapted from nicoulaj theme
 
@@ -25,9 +25,9 @@ PROMPT_ROOT_END=">>"
 PROMPT_SUCCESS_COLOR=$FG[071]
 PROMPT_FAILURE_COLOR=$FG[124]
 PROMPT_VCS_INFO_COLOR=$FG[242]
-NAME_COLOR=$fg_bold[magenta]
+NAME_COLOR=$fg_bold[blue]
 AT_COLOR=$fg_bold[green]
-HOSTNAME_BRACKET=$fg_bold[blue]
+HOSTNAME_BRACKET=$fg_bold[green]
 
 # Set required options.
 setopt promptsubst
