@@ -2,8 +2,12 @@
 set -xe
 
 # git setup
-git config --global user.name "jangui"
-git config --global user.email "jaime.dangui@gmail.com"
+if [ -z "$GITUSER" ] || [ -z "$GITEMAIL" ]; then
+    echo "Error: GITUSER and GITEMAIL variables must be set." >&2
+    exit 1
+fi
+git config --global user.name "$GITUSER"
+git config --global user.email "$GITEMAIL"
 git config --global init.defaultBranch master
 
 # packages to innstall
