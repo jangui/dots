@@ -102,10 +102,11 @@ else
     exit 1
 fi
 
-# setup ssh config
+# copy ssh config
 [ ! -d $HOME/.ssh/ ] && mkdir $HOME/.ssh/ && chmod 700 $HOME/.ssh/
 rm -rf $HOME/.ssh/config
-ln -s $HOME/.dots/config/ssh/config $HOME/.ssh/config
+cp $HOME/.dots/config/ssh/config $HOME/.ssh/config
+chmod 644 $HOME/.ssh/config
 
 # set default shell
 sudo chsh $(whoami) -s $(which zsh)
