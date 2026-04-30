@@ -92,3 +92,12 @@ ssha() {
   ssh-add $HOME/.ssh/id_rsa
   ssh-add $HOME/.ssh/id_rsa_git
 }
+
+# create new log entry
+entry() {
+  DIR="$ENTRIES_DIR"
+  filename="$(date +"%Y-%m-%d-%H%M").md"
+  filepath="$DIR/$filename"
+
+  vim "$filepath"
+}
