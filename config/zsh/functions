@@ -43,7 +43,7 @@ del() {
 }
 
 #empty trash
-empty_trash() {
+trash() {
     delete='rm -rf $HOME/.trashcan 2> /dev/null'
     eval "$delete" || { eval "sudo $delete" }
     mkdir "$HOME/.trashcan";
