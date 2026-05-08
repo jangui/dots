@@ -3,5 +3,9 @@ Host github.com
   IdentityFile ~/.ssh/id_rsa_git
   User git
 
-Host *
-  ForwardAgent yes
+# Example Config
+# Host local-host-name
+#   HostName actual-host-name
+#   User username
+#   IdentityFile ~/.ssh/id_rsa_custom
+#   ForwardAgent yes/no # forward local ssh keys 
