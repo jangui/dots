@@ -1,72 +1,81 @@
 #!/bin/bash
 set -xe
 
+# detect distro
+. /etc/os-release
+distro="$ID"
+
 # git setup
-if [ -z "$GITUSER" ] || [ -z "$GITEMAIL" ]; then
+if [[ -z "$GITUSER" || -z "$GITEMAIL" ]]; then
     echo "Error: GITUSER and GITEMAIL variables must be set." >&2
     exit 1
 fi
+
 git config --global user.name "$GITUSER"
 git config --global user.email "$GITEMAIL"
 git config --global init.defaultBranch master
 
-# packages to innstall
-packages="zsh vim"
+# base packages
+packages="zsh vim git curl"
 
-# set up based on distro
-distro="$(cat /etc/os-release | grep -w ID | tr -d ID= )"
-if [ $distro == "arch" ]; then
+# distro-specific setup
+if [[ "$distro" == "arch" ]]; then
+
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --needed --noconfirm base-devel git
+
+    mkdir -p "$HOME/build"
+
     # install trizen
-    mkdir $HOME/build
-    git clone https://aur.archlinux.org/trizen.git $HOME/build/trizen
-    cd $HOME/build/trizen
-    makepkg -si
-    aur_packages=""
-    cd $HOME
+    if [[ ! -d "$HOME/build/trizen" ]]; then
+        git clone https://aur.archlinux.org/trizen.git "$HOME/build/trizen"
+    fi
 
-    # terminal emulator
+    cd "$HOME/build/trizen"
+    makepkg -si --noconfirm
+    cd "$HOME"
+
+    aur_packages="polybar"
+
+    # terminal
     packages+=" rxvt-unicode"
     term="rxvt-unicode"
     terminal="rxvt-unicode"
 
-    # display server
-    packages+=" xorg-server xorg-init"
+    # xorg
+    packages+=" xorg-server xorg-xinit xorg-xset xorg-xrandr"
+
     echo "REMINDER: install graphics driver"
-    sudo rm -rf $HOME/.xinitrc
-    ln -s $HOME/.dots/config/xorg/xinitrc $HOME/.xinitrc
-    sudo rm -rf $HOME/.xResources
-    ln -s $HOME/.dots/config/xorg/xResources $HOME/.xResources
-    packages+=" xorg-xset" # typematic delay & rate
+
+    ln -sfn "$HOME/.dots/config/xorg/xinitrc" "$HOME/.xinitrc"
+    ln -sfn "$HOME/.dots/config/xorg/xResources" "$HOME/.Xresources"
 
     # compositor
     packages+=" picom"
 
-    # monitor configuration
-    packages+=" xorg-xrandr"
+    # wm
+    packages+=" i3 dmenu"
 
-    # window manager
-    packages+=" i3"
-    sudo rm -rf $HOME/.config/i3
-    ln -s $HOME/.dots/config/i3 $HOME/.config/i3
+    mkdir -p "$HOME/.config"
 
-    # status bar
-    aur_packages+="polybar"
-    ln -s $HOME/.dots/config/polybar $HOME/.config/
-    chmod +x $HOME/.config/polybar/launch.sh
+    ln -sfn "$HOME/.dots/config/i3" "$HOME/.config/i3"
 
-    # i3 lock
-    aur_package+=" i3-lock"
-    rm -rf $HOME/.lock
-    ln -s $HOME/.dots/bin/lock $HOME/.lock
-    chmod +x $HOME/.lock
+    # polybar
+    ln -sfn "$HOME/.dots/config/polybar" "$HOME/.config/polybar"
+    chmod +x "$HOME/.config/polybar/launch.sh"
 
-    # application launcher
-    packages+=" dmenu"
+    # lock
+    packages+=" i3lock"
+
+    ln -sfn "$HOME/.dots/bin/lock" "$HOME/.lock"
+    chmod +x "$HOME/.lock"
 
     # wallpaper
     packages+=" feh"
-    ln -s $HOME/.dots/bin/fehbg $HOME/.fehbg
-    chmod +x $HOME/.fehbg
+
+    ln -sfn "$HOME/.dots/bin/fehbg" "$HOME/.fehbg"
+    chmod +x "$HOME/.fehbg"
+
     echo "REMINDER: save wallpaper to ~/.wallpaper"
 
     # fonts
@@ -77,73 +86,99 @@ if [ $distro == "arch" ]; then
 
     # ssh
     packages+=" openssh"
-    mkdir $HOME/.ssh
-    chmod 700 $HOME/.ssh
 
-    # extra
+    mkdir -p "$HOME/.ssh"
+    chmod 700 "$HOME/.ssh"
+
+    # extras
     packages+=" htop"
-    
-    # install packages
-    sudo pacman -Syu
-    sudo pacman -S $packages
-    sudo trizen -S $aur_packages
-    
-    # pacman setup
-    sudo rm -rf /etc/pacman.conf
-    sudo ln -s $HOME/.dots/config/pacman/pacman.conf /etc/pacman.conf
 
-elif [ $distro == "ubuntu" ]; then
+    # install packages
+    sudo pacman -S --needed --noconfirm $packages
+
+    if [[ -n "$aur_packages" ]]; then
+        trizen -S --needed --noconfirm $aur_packages
+    fi
+
+    # pacman config
+    sudo ln -sfn "$HOME/.dots/config/pacman/pacman.conf" /etc/pacman.conf
+
+elif [[ "$distro" == "ubuntu" ]]; then
+
     term="gnome-terminal"
     terminal="gnome-terminal"
-    sudo apt update && sudo apt upgrade -y 
-    sudo apt install $packages
+
+    sudo apt update
+    sudo apt upgrade -y
+
+    sudo apt install -y $packages
+
 else
-    echo "unknown distro: $distro" 
+    echo "unknown distro: $distro"
     exit 1
 fi
 
-# copy ssh config
-[ ! -d $HOME/.ssh/ ] && mkdir $HOME/.ssh/ && chmod 700 $HOME/.ssh/
-rm -rf $HOME/.ssh/config
-cp $HOME/.dots/config/ssh/config $HOME/.ssh/config
-chmod 644 $HOME/.ssh/config
+# ssh config
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+
+cp "$HOME/.dots/config/ssh/config" "$HOME/.ssh/config"
+chmod 644 "$HOME/.ssh/config"
 
 # set default shell
-sudo chsh $(whoami) -s $(which zsh)
+sudo chsh "$(whoami)" -s "$(which zsh)"
 
 # vim config
-rm -rf $HOME/.vimrc 
-ln -s $HOME/.dots/config/vim/vimrc $HOME/.vimrc
+ln -sfn "$HOME/.dots/config/vim/vimrc" "$HOME/.vimrc"
 
-# install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+# oh-my-zsh
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
 
-# set up oh my zsh themes
-rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
-ln -s $HOME/.dots/config/zsh/themes/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
-rm -rf $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
-ln -s $HOME/.dots/config/zsh/themes/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
+# themes
+ln -sfn \
+    "$HOME/.dots/config/zsh/themes/jangui.zsh-theme" \
+    "$HOME/.oh-my-zsh/themes/jangui.zsh-theme"
+
+ln -sfn \
+    "$HOME/.dots/config/zsh/themes/jangui-ssh.zsh-theme" \
+    "$HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme"
 
 # zsh syntax highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-chmod g-w,o-w $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+if [[ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
+    git clone \
+        https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+fi
+
+chmod -R go-w "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 
 # zsh config
-rm -rf $HOME/.zshrc 
-ln -s $HOME/.dots/config/zsh/zshrc $HOME/.zshrc
-touch $HOME/.dots/config/zsh/custom_rc
-echo "export TERM=$term" >> $HOME/.dots/config/zsh/custom_rc
-echo "export TERMINAL=$terminal" >> $HOME/.dots/config/zsh/custom_rc
-touch $HOME/.zprofile
+ln -sfn "$HOME/.dots/config/zsh/zshrc" "$HOME/.zshrc"
 
-# add startx to zprofile
-if [ $distro == "arch" ]; then
-    echo "startx" >> $HOME/.zprofile
-fi 
+touch "$HOME/.custom_rc"
+ln -sfn "$HOME/.custom_rc" "$HOME/.dots/config/zsh/custom_rc"
 
-# make trash folders
-mkdir -p $HOME/.trashcan
+if ! grep -q "export TERM=" "$HOME/.dots/config/zsh/custom_rc"; then
+    echo "export TERM=$term" >> "$HOME/.dots/config/zsh/custom_rc"
+fi
+
+if ! grep -q "export TERMINAL=" "$HOME/.dots/config/zsh/custom_rc"; then
+    echo "export TERMINAL=$terminal" >> "$HOME/.dots/config/zsh/custom_rc"
+fi
+
+touch "$HOME/.zprofile"
+
+# startx on tty login
+if [[ "$distro" == "arch" ]]; then
+    if ! grep -q "^startx$" "$HOME/.zprofile"; then
+        echo "startx" >> "$HOME/.zprofile"
+    fi
+fi
+
+# trash folders
+mkdir -p "$HOME/.trashcan"
 sudo mkdir -p /root/.trashcan
 
 echo "Setup successful!"
-
