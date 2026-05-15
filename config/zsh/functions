@@ -1,103 +1,136 @@
+# ~/.dots/config/zsh/functions
 
-# delete unwanted files
 rm_crap() {
-    rm -rf $HOME/Dropbox/.dropbox.cache/*
+  rm -rf "$HOME/Dropbox/.dropbox.cache/"*
 }
 
-# override cd so new shells open where we left off
 cd() {
-    builtin cd $1
-    pwd > $HOME/.pwd
+  builtin cd "${1:-$HOME}" || return
+  pwd > "$HOME/.pwd"
 }
 
-# move files to trash 
 del() {
-  for filename in "$@" ; do
-    # if symlink, delete
-    if [[ -L $filename ]]; then 
-        rm -rf $filename || sudo rm -rf $filename
-        continue
+  mkdir -p "$HOME/.trashcan"
+
+  for filename in "$@"; do
+    if [[ ! -e "$filename" && ! -L "$filename" ]]; then
+      echo "No such file or directory: $filename"
+      continue
     fi
 
-    # check if file exists
-    if [ ! -f $filename ] ; then
-      if [ ! -d $filename ] ; then
-        echo "No such file or directory: $filename"
-        continue
-      fi
-    fi
+    basefilename="$(basename "$filename")"
 
-    # add timestamp if name conflict
-    basefilename=$(basename $filename)
-    if [[ $(find $HOME/.trashcan/ -maxdepth 1 -name "$basefilename" | wc -l) = 0 ]] ; then
-      newName=$basefilename
+    if [[ -e "$HOME/.trashcan/$basefilename" ]]; then
+      new_name="$basefilename.$(date +"%s")"
     else
-      newName=$basefilename.$(date +"%s")
+      new_name="$basefilename"
     fi
 
-    # move to trash
-    trash="mv $filename $HOME/.trashcan/$newName 2> /dev/null"
-    forceTrash="mv $filename $HOME/.trashcan/$newName --force 2> /dev/null"
-    eval "$trash" || { eval "sudo $trash" } || { eval "sudo $forceTrash" }
+    mv -- "$filename" "$HOME/.trashcan/$new_name" 2>/dev/null ||
+      sudo mv -- "$filename" "$HOME/.trashcan/$new_name"
   done
 }
 
-#empty trash
 trash() {
-    delete='rm -rf $HOME/.trashcan 2> /dev/null'
-    eval "$delete" || { eval "sudo $delete" }
-    mkdir "$HOME/.trashcan";
+  rm -rf "$HOME/.trashcan" 2>/dev/null ||
+    sudo rm -rf "$HOME/.trashcan"
+
+  mkdir -p "$HOME/.trashcan"
 }
 
-# upload file using sftp
 upload() {
-  if [ $# -ne 2 ]; then
+  if [[ $# -ne 2 ]]; then
     echo "usage: upload <user>@<host> <file>"
+    return 1
+  fi
+
+  local destination="$1"
+  local target="$2"
+
+  if [[ ! -e "$target" ]]; then
+    echo "No such file or directory: $target"
+    return 1
+  fi
+
+  if [[ -d "$target" ]]; then
+    local compressed="$HOME/$(basename "$target").tar.gz"
+
+    tar zcf "$compressed" "$target" || return 1
+    sftp "$destination" <<< "put $compressed"
+    rm -f "$compressed"
     return
   fi
 
-  # check if file exists
-  if [ ! -f $2 ]; then
-    if [ ! -d $2 ] ; then
-      echo "No such file or directory: $2"
-      return
-    fi
-  fi
-
-  # if directory, tar -> upload -> delete tar
-  if [ -d $2 ]; then
-    compressed=$HOME/$(basename $2).tar.gz
-    tar zcf $compressed $2
-    sftp $1 <<< "put $compressed"
-    rm -rf $compressed
-    return
-  fi
-
-  sftp $1 <<< "put $2"
+  sftp "$destination" <<< "put $target"
 }
 
-# enter first docker container that matches grep
 enter() {
-  found=$(docker ps | grep $1 | awk {'print $1'} | head -1)
-  if [ -z $found ] ; then
-    echo "no containers found associated with '$1'"
-    return
+  if [[ -z "$1" ]]; then
+    echo "usage: enter <container-name-fragment>"
+    return 1
   fi
-  docker exec -it $found sh
+
+  local found
+  found="$(docker ps | grep "$1" | awk '{print $1}' | head -1)"
+
+  if [[ -z "$found" ]]; then
+    echo "no containers found associated with '$1'"
+    return 1
+  fi
+
+  docker exec -it "$found" sh
 }
 
-# run ssha and add keys
 ssha() {
-  eval `ssh-agent -s`
-  ssh-add $HOME/.ssh/id_rsa
-  ssh-add $HOME/.ssh/id_rsa_git
+  eval "$(ssh-agent -s)"
+  ssh-add "$HOME/.ssh/id_rsa"
+  ssh-add "$HOME/.ssh/id_rsa_git"
 }
 
-# create new log entry
 entry() {
-  DIR="$ENTRIES_DIR"
+  local dir="$ENTRIES_DIR"
+  local filename
+  local filepath
+
+  if [[ -z "$dir" ]]; then
+    echo "ENTRIES_DIR is not set"
+    return 1
+  fi
+
+  mkdir -p "$dir"
+
   filename="$(date +"%Y-%m-%d-%H%M").md"
-  filepath="$DIR/$filename"
+  filepath="$dir/$filename"
 
   vim "$filepath"
+}
+
+clipcopy() {
+  if command -v pbcopy >/dev/null; then
+    pbcopy
+  elif command -v wl-copy >/dev/null; then
+    wl-copy
+  elif command -v xclip >/dev/null; then
+    xclip -selection clipboard
+  elif command -v xsel >/dev/null; then
+    xsel --clipboard --input
+  else
+    echo "No clipboard copy utility found" >&2
+    return 1
+  fi
+}
+
+clippaste() {
+  if command -v pbpaste >/dev/null; then
+    pbpaste
+  elif command -v wl-paste >/dev/null; then
+    wl-paste
+  elif command -v xclip >/dev/null; then
+    xclip -selection clipboard -o
+  elif command -v xsel >/dev/null; then
+    xsel --clipboard --output
+  else
+    echo "No clipboard paste utility found" >&2
+    return 1
+  fi
 }

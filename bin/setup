@@ -120,9 +120,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 # set up oh my zsh themes
 rm -rf $HOME/.oh-my-zsh/themes/jangui.zsh-theme
-ln -s $HOME/.dots/config/zsh/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
+ln -s $HOME/.dots/config/zsh/themes/jangui.zsh-theme $HOME/.oh-my-zsh/themes/jangui.zsh-theme
 rm -rf $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
-ln -s $HOME/.dots/config/zsh/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
+ln -s $HOME/.dots/config/zsh/themes/jangui-ssh.zsh-theme $HOME/.oh-my-zsh/themes/jangui-ssh.zsh-theme
 
 # zsh syntax highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
