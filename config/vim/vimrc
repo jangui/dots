@@ -1,37 +1,38 @@
 " ~/.vimrc
 
-"sets , to leader key
+" sets , to leader key
 let mapleader = ","
 
-" Sets how many lines of history VIM has to remember
+" sets how many lines of history vim has to remember
 set history=500
 
-"set line numbers
+" set line numbers
 set number
 
-" Enable syntax highlighting
-syntax on 
+" enable syntax highlighting
+syntax on
 
-" Enable filetype plugins
+" enable filetype plugins
 filetype plugin on
 filetype indent on
 
-" Set to auto read when a file is changed from the outside
+" set to auto read when a file is changed from the outside
 set autoread
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+" set 7 lines to the cursor - when moving vertically using j/k
+set scrolloff=7
 
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+" avoid garbled characters in chinese language windows os
+let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the Wild menu
+" turn on the wild menu
 set wildmenu
+set wildmode=list:longest,full
 
-" Ignore compiled files
+" ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
@@ -39,50 +40,56 @@ else
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-"Always show current position
+" always show current position
 set ruler
 
-" Height of the command bar
+" show partial commands in the last line
+set showcmd
+
+" show current mode
+set showmode
+
+" height of the command bar
 set cmdheight=2
 
-" A buffer becomes hidden when it is abandoned
-set hid
+" a buffer becomes hidden when it is abandoned
+set hidden
 
-" Configure backspace so it acts as it should act
+" configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
+" ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" when searching try to be smart about cases
 set smartcase
 
-" Makes search act like search in modern browsers
-set incsearch 
+" makes search act like search in modern browsers
+set incsearch
 
-" Don't redraw while executing macros (good performance config)
-set lazyredraw 
+" don't redraw while executing macros
+set lazyredraw
 
-" For regular expressions turn magic on
+" for regular expressions turn magic on
 set magic
 
-" Show matching brackets when text indicator is over them
-"set showmatch 
+" show matching brackets when text indicator is over them
+"set showmatch
 
-" How many tenths of a second to blink when matching brackets
-set mat=2
+" how many tenths of a second to blink when matching brackets
+set matchtime=2
 
-" No annoying sound on errors
+" no annoying sound on errors
 set noerrorbells
 set visualbell
 set t_vb=
-set tm=500
+set timeoutlen=500
 
-" Add a bit extra margin to the left
+" add a bit extra margin to the left
 "set foldcolumn=1
 
-" Enable 256 colors palette in Gnome Terminal
+" enable 256 colors palette in gnome terminal
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
@@ -94,51 +101,48 @@ endtry
 
 set background=dark
 
-" Set utf8 as standard encoding and en_US as the standard language
+" set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+" use unix as the standard file type
+set fileformats=unix,dos,mac
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" turn backup off, since most stuff is in git anyway
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
-" Use spaces instead of tabs
+" use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" be smart when using tabs
 set smarttab
 
 " tab size == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
 
-" use spaces instead of tabs
-set expandtab
+" linebreak on 500 characters
+set linebreak
+set textwidth=500
 
-" Linebreak on 500 characters
-set lbr
-set tw=500
+set autoindent " auto indent
+set wrap " wrap lines
 
-set ai " Auto indent
-set si " Smart indent
-set wrap " Wrap lines
-
-" Return to last edit position when opening files
+" return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Always show the status line
+" always show the status line
 "set laststatus=2
 
-" Format the status line
+" format the status line
 set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
-" Remap VIM 0 to first non-blank character
-map 0 ^
+" remap vim 0 to first non-blank character
+nnoremap 0 ^
 
-" Delete trailing white space on save, useful for some filetypes ;)
+" delete trailing white space on save
 fun! CleanExtraSpaces()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
@@ -155,71 +159,79 @@ endif
 highlight LineNr ctermfg=red
 
 " use system clipboard
-set clipboard=unnamedplus
+if has("clipboard")
+    if has("macunix")
+        set clipboard=unnamed
+    else
+        set clipboard=unnamedplus
+    endif
+endif
 
-""" WINDOW (SPLITS) MANAGEMENT / NAGIVATION """
+""" window (splits) management / navigation """
 
-" remap control-w + h/j/k/l to control-h/j/k/l (window navigation)
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+" remap control-w + h/j/k/l to control-h/j/k/l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " remapping turning current window into tab
-noremap <C-t> <C-w>T
+nnoremap <C-t> <C-w>T
 
 " remapping close all windows in current tab except current window
-noremap <C-o> <C-w>o
+nnoremap <C-o> <C-w>o
 
 " remapping normalize all window sizes
-noremap <C-=> <C-w>=
+nnoremap <C-=> <C-w>=
 
-" change default vertical split to split below
+" horizontal splits open below
 set splitbelow
 
-" change default horizontal split to split right
+" vertical splits open to the right
 set splitright
 
 " close current window
-map <leader>c :close<cr>
+nnoremap <leader>c :close<CR>
 
 " open file explore & open file in horizontal split
-map <leader>h :Sexplore<cr>
+nnoremap <leader>h :Sexplore<CR>
 
-" open file explore & open file in vertical split (on the right)
-map <leader>v :Vexplore!<cr>
+" open file explore & open file in vertical split on the right
+nnoremap <leader>v :Vexplore!<CR>
 
-" open file explore & open file in vertical split (on the left)
-map <leader>vl :Vexplore<cr>
+" open file explore & open file in vertical split on the left
+nnoremap <leader>vl :Vexplore<CR>
 
-""" MISC MAPPINGS """
+""" misc mappings """
+
+" toggle paste mode
+nnoremap <leader>p :set paste!<CR>
 
 " toggle between spell checking
-map <leader>ss :setlocal spell!<cr>
+nnoremap <leader>ss :setlocal spell!<CR>
 
 " disable line numbers
-map <leader>nn :set nonumber<cr>
+nnoremap <leader>nn :set nonumber<CR>
 
 " enable line numbers
-map <leader>n :set number<cr>
+nnoremap <leader>n :set number<CR>
 
 " run a shell
-map <leader>s :shell<cr>
+nnoremap <leader>s :shell<CR>
 
-" make (Makefile in cwd)
-map <leader>m :make<cr>
+" make
+nnoremap <leader>m :make<CR>
 
-" make clean (Makefile in cwd)
-map <leader>mc :make clean<cr>
+" make clean
+nnoremap <leader>mc :make clean<CR>
 
 " toggle tab size 2
-map <leader>t2 :set tabstop=2 shiftwidth=2<cr>
+nnoremap <leader>t2 :set tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
 " toggle tab size 4
-map <leader>t4 :set tabstop=4 shiftwidth=4<cr>
+nnoremap <leader>t4 :set tabstop=4 shiftwidth=4 softtabstop=4<CR>
 
 " unmap uppercase / lowercase toggling
-" (can still use ~ built in instead)
-vmap u <Nop>
-vmap U <Nop>
-
+" can still use ~ built in instead
+vnoremap u <Nop>
+vnoremap U <Nop>
