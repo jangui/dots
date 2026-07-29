@@ -1,0 +1,98 @@
+#!/bin/bash
+
+APP_NAME="${1:-Jagex Launcher}"
+WAIT_SECONDS=10
+
+spinner() {
+  local symbols='|/-\'
+  local total_ticks=$((WAIT_SECONDS * 10))
+  local tick
+  local sec
+
+  for ((tick=0; tick<total_ticks; tick++)); do
+    sec=$((tick / 10 + 1))
+
+    printf "\r%c Waiting... [%d/%d]" \
+      "${symbols:tick%${#symbols}:1}" \
+      "$sec" \
+      "$WAIT_SECONDS"
+
+    sleep 0.1
+  done
+
+  printf "\r✓ Waiting... [%d/%d]\n" \
+    "$WAIT_SECONDS" \
+    "$WAIT_SECONDS"
+}
+
+start_app_timer() {
+  local app_name="RuneLite"
+
+  nohup /bin/bash -c '
+    app_name="$1"
+
+    # Alert after 45 minutes.
+    sleep $((45 * 60))
+
+    /usr/bin/osascript \
+      -e "display notification \"$app_name has been open for 45 minutes.\" with title \"Time Check\" sound name \"Glass\""
+
+    # Wait another 15 minutes, reaching one hour total.
+    sleep $((15 * 60))
+
+    is_running=$(
+      /usr/bin/osascript \
+        -e "application \"$app_name\" is running"
+    )
+
+    if [[ "$is_running" == "true" ]]; then
+      /usr/bin/osascript \
+        -e "display notification \"$app_name will now be closed.\" with title \"One-Hour Limit\" sound name \"Glass\""
+
+      /usr/bin/osascript \
+        -e "tell application \"$app_name\" to quit"
+    fi
+  ' timer-process "$app_name" \
+    </dev/null \
+    </dev/null \
+    >/dev/null 2>&1 &
+
+  echo "Timer started in the background with PID $!."
+}
+
+echo "##### ARE YOU SURE YOU WANT TO PLAY RUNESCAPE? #####"
+echo ""
+echo "##### JUST BCS YOU *CAN* PLAY RS ALL TIME (AFK WHILE DOING OTHER THINGS) DOESNT MEAN YOU SHOULD #####"
+echo ""
+
+spinner
+
+while true; do
+  read -r -p "Launch \"$APP_NAME\"? (y/n): " answer
+
+  case "$answer" in
+    [Yy]|[Yy][Ee][Ss])
+      if open -a "$APP_NAME"; then
+        echo "Launching $APP_NAME..."
+        start_app_timer "$APP_NAME"
+
+        echo "You will be alerted in 45 minutes."
+        echo "$APP_NAME will be closed after one hour if it is still running."
+      else
+        echo "Error: Could not find an application named \"$APP_NAME\"."
+        exit 1
+      fi
+
+      break
+      ;;
+
+    [Nn]|[Nn][Oo])
+      echo "Cancelled."
+      break
+      ;;
+
+    *)
+      echo "Please enter y or n."
+      ;;
+  esac
+done

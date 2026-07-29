@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_PATH="$SCRIPT_DIR/OSRS-script"
+
+osascript - "$SCRIPT_PATH" <<'APPLESCRIPT'
+on run argv
+    set scriptPath to item 1 of argv
+
+    tell application "Terminal"
+        activate
+        do script quoted form of scriptPath
+    end tell
+end run
+APPLESCRIPT
